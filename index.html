@@ -152,7 +152,7 @@
         </div>
 
         <div class="workflow-timeline-container">
-          <div class="workflow-step-card" onclick="presentation.goToSlide(7)">
+          <div class="workflow-step-card" onclick="presentation.goToSlide(4)">
             <div class="step-number">0</div>
             <div class="step-role gold">👑 Docente</div>
             <h3>Inicialización</h3>
@@ -160,7 +160,7 @@
             <div class="step-arrow">→</div>
           </div>
 
-          <div class="workflow-step-card" onclick="presentation.goToSlide(8)">
+          <div class="workflow-step-card" onclick="presentation.goToSlide(5)">
             <div class="step-number">1</div>
             <div class="step-role cyan">👨‍💻 Dev A</div>
             <h3>Base del Proyecto</h3>
@@ -168,7 +168,7 @@
             <div class="step-arrow">→</div>
           </div>
 
-          <div class="workflow-step-card" onclick="presentation.goToSlide(10)">
+          <div class="workflow-step-card" onclick="presentation.goToSlide(8)">
             <div class="step-number">2</div>
             <div class="step-role rose">👩‍💻 Dev B</div>
             <h3>Invitación & Clonado</h3>
@@ -176,7 +176,7 @@
             <div class="step-arrow">→</div>
           </div>
 
-          <div class="workflow-step-card" onclick="presentation.goToSlide(11)">
+          <div class="workflow-step-card" onclick="presentation.goToSlide(9)">
             <div class="step-number">3</div>
             <div class="step-role emerald">🔀 Paralelo</div>
             <h3>Feature Branches</h3>
@@ -212,12 +212,12 @@
     <!-- ==========================================
          SLIDE 3: CONCEPTOS CLAVE #1 (main vs master)
          ========================================== -->
-    <section class="slide" id="slide-3" data-phase="Conceptos Previos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto 1: Rama main vs master">
+    <section class="slide" id="slide-3" data-phase="Fase 0: Conceptos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto 1: Rama main vs master y git branch -M">
       <div class="slide-inner">
         <div class="slide-header">
-          <span class="step-tag">Conceptos Previos & Aclaraciones Clave</span>
+          <span class="step-tag">Conceptos Clave & Fundamentos</span>
           <h2>¿La rama inicial es <code>main</code> por defecto?</h2>
-          <p class="slide-desc">Entendiendo la evolución de las ramas principales y el porqué de <code>git branch -M main</code>.</p>
+          <p class="slide-desc">Entendiendo la evolución de las ramas principales y el porqué de <code>git branch -M main</code> antes de inicializar.</p>
         </div>
 
         <div class="two-col-layout">
@@ -259,7 +259,7 @@
             </div>
 
             <div class="tip-box">
-              <div class="tip-title">⚠️ ¿Por qué es vital hacerlo?</div>
+              <div class="tip-title">⚠️ ¿Por qué es vital hacerlo al inicio?</div>
               <p>Si subes tu código con el nombre <code>master</code> a un repositorio que GitHub inicializó esperando <code>main</code>, terminarás con dos ramas separadas y desincronizadas.</p>
             </div>
           </div>
@@ -268,201 +268,9 @@
     </section>
 
     <!-- ==========================================
-         SLIDE 4: CONCEPTOS CLAVE #2 (git commit -am)
+         SLIDE 4: FASE 0 - DOCENTE / LÍDER
          ========================================== -->
-    <section class="slide" id="slide-4" data-phase="Conceptos Previos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto 2: Sintaxis de git commit -am">
-      <div class="slide-inner">
-        <div class="slide-header">
-          <span class="step-tag">Conceptos Previos & Aclaraciones Clave</span>
-          <h2>Sintaxis y Límites de <code>git commit -am "mensaje"</code></h2>
-          <p class="slide-desc">Desarmando la combinación de flags y comprendiendo las 3 áreas de Git.</p>
-        </div>
-
-        <div class="two-col-layout">
-          <div class="col-content">
-            <div class="flags-breakdown-card">
-              <h3>Desglose de los dos flags combinados:</h3>
-              
-              <div class="flag-item">
-                <div class="flag-tag"><code>-a</code> (all / tracked)</div>
-                <div class="flag-desc">
-                  <strong>Auto-Staging de modificados:</strong> Selecciona automáticamente todos los archivos que ya han sido rastreados (<em>tracked</em>) por Git y han sufrido cambios o eliminaciones. Te ahorra ejecutar <code>git add</code> en archivos existentes.
-                </div>
-              </div>
-
-              <div class="flag-item">
-                <div class="flag-tag"><code>-m</code> (message)</div>
-                <div class="flag-desc">
-                  <strong>Mensaje en línea:</strong> Pasa el mensaje descriptivo del commit directamente entre comillas desde la línea de comandos, evitando que Git abra un editor interactivo en consola (como Vim o Nano).
-                </div>
-              </div>
-            </div>
-
-            <div class="warning-callout">
-              <div class="warn-header">
-                <span class="warn-icon">🚨</span> <strong>¡OJO! La Trampa de los Archivos Nuevos:</strong>
-              </div>
-              <p>El flag <code>-a</code> <strong>NO incluye archivos nuevos sin seguimiento (<em>untracked</em>)</strong>. Si creas un archivo nuevo (ej: <code>nuevo.txt</code>), <code>git commit -am</code> lo ignorará por completo. En ese caso es <strong>obligatorio</strong> hacer primero <code>git add nuevo.txt</code>.</p>
-            </div>
-          </div>
-
-          <div class="col-visual">
-            <div class="git-areas-diagram">
-              <div class="area-box">
-                <div class="area-header">1. Working Directory</div>
-                <div class="area-body">Archivos editados en tu disco local</div>
-              </div>
-              <div class="area-flow">
-                <span class="flow-label"><code>git commit -a</code> (Solo Tracked)</span>
-                <span class="flow-arrow">⬇️ Salta Staging</span>
-              </div>
-              <div class="area-box highlight">
-                <div class="area-header">2. Staging Area (Index)</div>
-                <div class="area-body">Área de preparación (<code>git add</code>)</div>
-              </div>
-              <div class="area-flow">
-                <span class="flow-label"><code>git commit -m "..."</code></span>
-                <span class="flow-arrow">⬇️ Guarda Foto</span>
-              </div>
-              <div class="area-box final">
-                <div class="area-header">3. Local Repository (.git)</div>
-                <div class="area-body">Historial inmutable con Hash SHA-1</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================
-         SLIDE 5: CONCEPTOS CLAVE #3 (Pull Requests)
-         ========================================== -->
-    <section class="slide" id="slide-5" data-phase="Conceptos Previos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto 3: Pull Requests en Git vs GitHub">
-      <div class="slide-inner">
-        <div class="slide-header">
-          <span class="step-tag">Conceptos Previos & Aclaraciones Clave</span>
-          <h2>¿Se puede hacer un Pull Request desde la consola nativa?</h2>
-          <p class="slide-desc">Diferenciando el motor Git del ecosistema colaborativo de GitHub.</p>
-        </div>
-
-        <div class="comparison-grid">
-          <div class="comp-card git-core">
-            <div class="comp-header">
-              <span class="comp-icon">💻</span>
-              <h3>Git (Motor CLI Nativo)</h3>
-            </div>
-            <p>Git es una herramienta descentralizada de control de versiones. <strong>No incluye el concepto de Pull Request</strong> dentro de su especificación nativa.</p>
-            <ul class="comp-bullets">
-              <li>Maneja ramas, commits, merges y remotos.</li>
-              <li>Comandos nativos: <code>git push</code>, <code>git fetch</code>, <code>git merge</code>.</li>
-              <li>No tiene servidor web ni sistema de comentarios/aprobaciones.</li>
-            </ul>
-          </div>
-
-          <div class="comp-card github-platform">
-            <div class="comp-header">
-              <span class="comp-icon">🌐</span>
-              <h3>GitHub / GitLab / Bitbucket</h3>
-            </div>
-            <p>Plataformas web que añaden una capa colaborativa y social sobre Git. El <strong>Pull Request (PR)</strong> es su funcionalidad estrella.</p>
-            <ul class="comp-bullets">
-              <li>Permite <strong>Code Review</strong> (revisión de código línea por línea).</li>
-              <li>Ejecución de tests automáticos (CI/CD).</li>
-              <li>Discusión y aprobación antes de fusionar a <code>main</code>.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="advanced-note-card">
-          <div class="note-icon">📌</div>
-          <div class="note-body">
-            <strong>¿Existe forma de hacerlo por terminal?</strong> Sí, mediante la herramienta oficial <strong>GitHub CLI (<code>gh</code>)</strong> ejecutando <code>gh pr create</code>. Sin embargo, el flujo estándar de la industria y el que utilizaremos en esta práctica se canaliza a través de la <strong>interfaz web de GitHub</strong>.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================
-         SLIDE 6: CONCEPTOS CLAVE #4 (git fetch vs git pull)
-         ========================================== -->
-    <section class="slide" id="slide-6" data-phase="Conceptos Previos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto 4: git fetch vs git pull">
-      <div class="slide-inner">
-        <div class="slide-header">
-          <span class="step-tag">Conceptos Previos & Aclaraciones Clave</span>
-          <h2>¿Qué hace exactamente <code>git fetch</code>?</h2>
-          <p class="slide-desc">La consulta segura al servidor remoto vs la integración automática con <code>git pull</code>.</p>
-        </div>
-
-        <div class="two-col-layout">
-          <div class="col-content">
-            <div class="fetch-box">
-              <div class="fetch-title">
-                <span class="tag-green">git fetch origin</span>
-                <span>Consulta Segura (Solo Lectura)</span>
-              </div>
-              <p>Descarga todas las novedades (ramas, commits, etiquetas) desde el servidor remoto a tu copia local, pero <strong>sin alterar ni modificar los archivos de tu área de trabajo actual</strong>.</p>
-              <ul class="bullet-check">
-                <li>Actualiza tu "mapa remoto local" (punteros <code>origin/main</code>, <code>origin/feature</code>).</li>
-                <li>Te permite inspeccionar qué cambió con <code>git diff HEAD origin/main</code> antes de fusionar.</li>
-              </ul>
-            </div>
-
-            <div class="pull-box">
-              <div class="pull-title">
-                <span class="tag-orange">git pull origin main</span>
-                <span>Descarga + Fusión Automática</span>
-              </div>
-              <p>Es un atajo compuesto por dos pasos ejecutados consecutivamente:</p>
-              <div class="equation-badge">
-                <code>git pull</code> = <code>git fetch</code> + <code>git merge origin/main</code>
-              </div>
-              <p>Descarga y aplica los cambios inmediatamente sobre tu código de trabajo. Si hay conflicto, se manifiesta al instante.</p>
-            </div>
-          </div>
-
-          <div class="col-visual">
-            <div class="fetch-diagram-card">
-              <h4>Visualización de Punteros en Memoria</h4>
-              <div class="diagram-layers">
-                <div class="layer-item remote">
-                  <span class="layer-tag">GitHub (origin/main)</span>
-                  <div class="commit-chain">
-                    <span class="node">C1</span> ➔ <span class="node">C2</span> ➔ <span class="node highlight">C3 (Nuevo de Dev A)</span>
-                  </div>
-                </div>
-
-                <div class="fetch-action-arrow">
-                  <span>⬇️ <code>git fetch</code> descarga C3 al tracking local</span>
-                </div>
-
-                <div class="layer-item tracking">
-                  <span class="layer-tag">Tu Remoto Local (origin/main)</span>
-                  <div class="commit-chain">
-                    <span class="node">C1</span> ➔ <span class="node">C2</span> ➔ <span class="node highlight">C3 (Listo para inspección)</span>
-                  </div>
-                </div>
-
-                <div class="merge-action-arrow">
-                  <span>⬇️ <code>git merge</code> mueve tu rama activa local</span>
-                </div>
-
-                <div class="layer-item local">
-                  <span class="layer-tag">Tu Rama Local (main / HEAD)</span>
-                  <div class="commit-chain">
-                    <span class="node">C1</span> ➔ <span class="node">C2</span> ➔ <span class="node green">C3 (Archivos actualizados)</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================
-         SLIDE 7: FASE 0 - DOCENTE / LÍDER
-         ========================================== -->
-    <section class="slide" id="slide-7" data-phase="Fase 0: Setup Inicial" data-role="Docente / Líder" data-role-avatar="👑" data-title="Fase 0: Inicialización del Repositorio">
+    <section class="slide" id="slide-4" data-phase="Fase 0: Setup Inicial" data-role="Docente / Líder" data-role-avatar="👑" data-title="Fase 0: Inicialización del Repositorio">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -537,9 +345,9 @@ Branch 'main' set up to track remote branch 'main' from 'origin'.</span></code><
     </section>
 
     <!-- ==========================================
-         SLIDE 8: FASE 1.1 - DEV A CLONA
+         SLIDE 5: FASE 1.1 - DEV A CLONA
          ========================================== -->
-    <section class="slide" id="slide-8" data-phase="Fase 1: Configuración Dev A" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 1.1: Clonado del Proyecto por Dev A">
+    <section class="slide" id="slide-5" data-phase="Fase 1: Configuración Dev A" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 1.1: Clonado del Proyecto por Dev A">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -599,9 +407,76 @@ nothing to commit, working tree clean</span></code></pre>
     </section>
 
     <!-- ==========================================
-         SLIDE 9: FASE 1.2 - DEV A RECETA.TXT BASE
+         SLIDE 6: CONCEPTOS CLAVE #2 (git commit -am)
          ========================================== -->
-    <section class="slide" id="slide-9" data-phase="Fase 1: Configuración Dev A" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 1.2: Estructura Base de receta.txt">
+    <section class="slide" id="slide-6" data-phase="Fase 1: Conceptos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto 2: Sintaxis de git commit -am y las 3 Áreas">
+      <div class="slide-inner">
+        <div class="slide-header">
+          <span class="step-tag">Conceptos Clave & Fundamentos</span>
+          <h2>Sintaxis y Límites de <code>git commit -am "mensaje"</code></h2>
+          <p class="slide-desc">Desarmando la combinación de flags y comprendiendo las 3 áreas de Git antes de crear nuevos archivos.</p>
+        </div>
+
+        <div class="two-col-layout">
+          <div class="col-content">
+            <div class="flags-breakdown-card">
+              <h3>Desglose de los dos flags combinados:</h3>
+              
+              <div class="flag-item">
+                <div class="flag-tag"><code>-a</code> (all / tracked)</div>
+                <div class="flag-desc">
+                  <strong>Auto-Staging de modificados:</strong> Selecciona automáticamente todos los archivos que ya han sido rastreados (<em>tracked</em>) por Git y han sufrido cambios o eliminaciones. Te ahorra ejecutar <code>git add</code> en archivos existentes.
+                </div>
+              </div>
+
+              <div class="flag-item">
+                <div class="flag-tag"><code>-m</code> (message)</div>
+                <div class="flag-desc">
+                  <strong>Mensaje en línea:</strong> Pasa el mensaje descriptivo del commit directamente entre comillas desde la línea de comandos, evitando que Git abra un editor interactivo en consola (como Vim o Nano).
+                </div>
+              </div>
+            </div>
+
+            <div class="warning-callout">
+              <div class="warn-header">
+                <span class="warn-icon">🚨</span> <strong>¡OJO! La Trampa de los Archivos Nuevos:</strong>
+              </div>
+              <p>El flag <code>-a</code> <strong>NO incluye archivos nuevos sin seguimiento (<em>untracked</em>)</strong>. Si creas un archivo nuevo (ej: <code>receta.txt</code>), <code>git commit -am</code> lo ignorará por completo. En ese caso es <strong>obligatorio</strong> hacer primero <code>git add receta.txt</code>.</p>
+            </div>
+          </div>
+
+          <div class="col-visual">
+            <div class="git-areas-diagram">
+              <div class="area-box">
+                <div class="area-header">1. Working Directory</div>
+                <div class="area-body">Archivos editados en tu disco local</div>
+              </div>
+              <div class="area-flow">
+                <span class="flow-label"><code>git commit -a</code> (Solo Tracked)</span>
+                <span class="flow-arrow">⬇️ Salta Staging</span>
+              </div>
+              <div class="area-box highlight">
+                <div class="area-header">2. Staging Area (Index)</div>
+                <div class="area-body">Área de preparación (<code>git add</code>)</div>
+              </div>
+              <div class="area-flow">
+                <span class="flow-label"><code>git commit -m "..."</code></span>
+                <span class="flow-arrow">⬇️ Guarda Foto</span>
+              </div>
+              <div class="area-box final">
+                <div class="area-header">3. Local Repository (.git)</div>
+                <div class="area-body">Historial inmutable con Hash SHA-1</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 7: FASE 1.2 - DEV A RECETA.TXT BASE
+         ========================================== -->
+    <section class="slide" id="slide-7" data-phase="Fase 1: Configuración Dev A" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 1.2: Estructura Base de receta.txt">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -677,9 +552,9 @@ Instrucciones:
     </section>
 
     <!-- ==========================================
-         SLIDE 10: FASE 2 - DEV B INVITACIÓN & CLONADO
+         SLIDE 8: FASE 2 - DEV B INVITACIÓN & CLONADO
          ========================================== -->
-    <section class="slide" id="slide-10" data-phase="Fase 2: Incorporación Dev B" data-role="Dev B & Docente" data-role-avatar="👩‍💻" data-title="Fase 2: Permisos y Clonado por Dev B">
+    <section class="slide" id="slide-8" data-phase="Fase 2: Incorporación Dev B" data-role="Dev B & Docente" data-role-avatar="👩‍💻" data-title="Fase 2: Permisos y Clonado por Dev B">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -737,9 +612,9 @@ Receiving objects: 100% (6/6), done.</span>
     </section>
 
     <!-- ==========================================
-         SLIDE 11: FASE 3.1 - DEV A FEATURE INGREDIENTES
+         SLIDE 9: FASE 3.1 - DEV A FEATURE INGREDIENTES
          ========================================== -->
-    <section class="slide" id="slide-11" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 3.1: Dev A crea feature/ingredientes">
+    <section class="slide" id="slide-9" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 3.1: Dev A crea feature/ingredientes">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -804,9 +679,57 @@ Receiving objects: 100% (6/6), done.</span>
     </section>
 
     <!-- ==========================================
-         SLIDE 12: FASE 3.2 - DEV A PULL REQUEST EN GITHUB
+         SLIDE 10: CONCEPTOS CLAVE #3 (Pull Requests)
          ========================================== -->
-    <section class="slide" id="slide-12" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 3.2: Pull Request & Merge de Dev A en GitHub">
+    <section class="slide" id="slide-10" data-phase="Fase 3: Conceptos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto 3: Pull Requests en Git vs GitHub">
+      <div class="slide-inner">
+        <div class="slide-header">
+          <span class="step-tag">Conceptos Clave & Fundamentos</span>
+          <h2>¿Se puede hacer un Pull Request desde la consola nativa?</h2>
+          <p class="slide-desc">Dev A acaba de subir su rama remota. ¿Cómo se propone integrar cambios a la rama principal?</p>
+        </div>
+
+        <div class="comparison-grid">
+          <div class="comp-card git-core">
+            <div class="comp-header">
+              <span class="comp-icon">💻</span>
+              <h3>Git (Motor CLI Nativo)</h3>
+            </div>
+            <p>Git es una herramienta descentralizada de control de versiones. <strong>No incluye el concepto de Pull Request</strong> dentro de su especificación nativa.</p>
+            <ul class="comp-bullets">
+              <li>Maneja ramas, commits, merges y remotos.</li>
+              <li>Comandos nativos: <code>git push</code>, <code>git fetch</code>, <code>git merge</code>.</li>
+              <li>No tiene servidor web ni sistema de comentarios/aprobaciones.</li>
+            </ul>
+          </div>
+
+          <div class="comp-card github-platform">
+            <div class="comp-header">
+              <span class="comp-icon">🌐</span>
+              <h3>GitHub / GitLab / Bitbucket</h3>
+            </div>
+            <p>Plataformas web que añaden una capa colaborativa y social sobre Git. El <strong>Pull Request (PR)</strong> es su funcionalidad estrella.</p>
+            <ul class="comp-bullets">
+              <li>Permite <strong>Code Review</strong> (revisión de código línea por línea).</li>
+              <li>Ejecución de tests automáticos (CI/CD).</li>
+              <li>Discusión y aprobación antes de fusionar a <code>main</code>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="advanced-note-card">
+          <div class="note-icon">📌</div>
+          <div class="note-body">
+            <strong>¿Existe forma de hacerlo por terminal?</strong> Sí, mediante la herramienta oficial <strong>GitHub CLI (<code>gh</code>)</strong> ejecutando <code>gh pr create</code>. Sin embargo, el flujo estándar de la industria y el que utilizaremos en esta práctica se canaliza a través de la <strong>interfaz web de GitHub</strong>.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 11: FASE 3.2 - DEV A PULL REQUEST EN GITHUB
+         ========================================== -->
+    <section class="slide" id="slide-11" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 3.2: Pull Request & Merge de Dev A en GitHub">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -866,9 +789,9 @@ Receiving objects: 100% (6/6), done.</span>
     </section>
 
     <!-- ==========================================
-         SLIDE 13: FASE 3.3 - DEV B FEATURE INSTRUCCIONES
+         SLIDE 12: FASE 3.3 - DEV B FEATURE INSTRUCCIONES
          ========================================== -->
-    <section class="slide" id="slide-13" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 3.3: Dev B crea feature/instrucciones">
+    <section class="slide" id="slide-12" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 3.3: Dev B crea feature/instrucciones">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -930,9 +853,9 @@ Receiving objects: 100% (6/6), done.</span>
     </section>
 
     <!-- ==========================================
-         SLIDE 14: FASE 3.4 - DEV B PULL REQUEST SIN CONFLICTO
+         SLIDE 13: FASE 3.4 - DEV B PULL REQUEST SIN CONFLICTO
          ========================================== -->
-    <section class="slide" id="slide-14" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 3.4: PR de Dev B y Auto-Merge">
+    <section class="slide" id="slide-13" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 3.4: PR de Dev B y Auto-Merge">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -990,6 +913,77 @@ Receiving objects: 100% (6/6), done.</span>
             <div class="info-card">
               <h4>Estado en GitHub (origin/main):</h4>
               <p>La rama principal remota ya tiene <strong>tanto los ingredientes como las instrucciones</strong>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 14: CONCEPTOS CLAVE #4 (git fetch vs git pull)
+         ========================================== -->
+    <section class="slide" id="slide-14" data-phase="Fase 3: Conceptos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto 4: git fetch vs git pull (Inspección Segura)">
+      <div class="slide-inner">
+        <div class="slide-header">
+          <span class="step-tag">Conceptos Clave & Inspección Segura</span>
+          <h2>¿Cómo funciona <code>git fetch</code> y cómo inspeccionar sin perder datos locales?</h2>
+          <p class="slide-desc">GitHub ya tiene ramas y merges nuevos. Aprende a consultar y leer el servidor remoto de forma segura antes de fusionar.</p>
+        </div>
+
+        <div class="two-col-layout">
+          <div class="col-content">
+            <div class="fetch-box">
+              <div class="fetch-title">
+                <span class="tag-green">git fetch origin</span>
+                <span>Consulta Segura (Solo Lectura)</span>
+              </div>
+              <p>Descarga todas las novedades (ramas, commits, etiquetas) desde GitHub a tu copia local en los punteros remotos (<code>origin/main</code>), <strong>sin tocar ni alterar tu Working Directory ni tus archivos en disco</strong>.</p>
+              <ul class="bullet-check">
+                <li>Tus datos y cambios locales no guardados están <strong>100% a salvo</strong>.</li>
+                <li>Actualiza tu mapa interno de GitHub sin forzar ninguna integración.</li>
+              </ul>
+            </div>
+
+            <div class="pull-box">
+              <div class="pull-title">
+                <span class="tag-orange">git pull origin main</span>
+                <span>Descarga + Fusión Directa</span>
+              </div>
+              <p>Es un atajo compuesto que ejecuta dos pasos consecutivos:</p>
+              <div class="equation-badge">
+                <code>git pull</code> = <code>git fetch</code> + <code>git merge origin/main</code>
+              </div>
+              <p>Aplica los cambios inmediatamente sobre tus archivos locales de trabajo. Si hay conflicto, salta en el instante.</p>
+            </div>
+          </div>
+
+          <div class="col-visual">
+            <div class="terminal-card">
+              <div class="terminal-header">
+                <div class="term-dots"><span></span><span></span><span></span></div>
+                <span class="term-title">bash — Inspección Segura en Vivo</span>
+                <button class="btn-copy-code" onclick="presentation.copyCode(this)">Copiar</button>
+              </div>
+              <pre class="term-body"><code><span class="c-comment"># 1. Descarga el mapa remoto a tu máquina (sin tocar tus archivos):</span>
+<span class="c-prompt">$ </span><span class="c-cmd">git fetch origin</span>
+<span class="c-out">From https://github.com/fiemcasals/ClaseGitTP
+   4d1b8e9..b8a1c92  main       -> origin/main</span>
+
+<span class="c-comment"># 2. Revisa qué commits nuevos hay en GitHub que aún no tienes:</span>
+<span class="c-prompt">$ </span><span class="c-cmd">git log HEAD..origin/main --oneline</span>
+<span class="c-out">b8a1c92 (origin/main) Merge pull request #2 from feature/instrucciones
+7c2a9f1 Merge pull request #1 from feature/ingredientes</span>
+
+<span class="c-comment"># 3. Compara diferencias de código entre tu local y el remoto:</span>
+<span class="c-prompt">$ </span><span class="c-cmd">git diff HEAD origin/main</span>
+
+<span class="c-comment"># 4. Lee el archivo remoto completo sin modificar tu archivo en disco:</span>
+<span class="c-prompt">$ </span><span class="c-cmd">git show origin/main:receta.txt</span></code></pre>
+            </div>
+
+            <div class="tip-box">
+              <div class="tip-title">🛡️ Cero Riesgo en tu Estación de Trabajo</div>
+              <p>Con <code>git fetch</code> puedes crear o tener otra rama local con distinto contenido, inspeccionar tranquilamente qué hicieron los demás con <code>git log</code> o <code>git show</code>, y decidir el momento exacto de fusionar.</p>
             </div>
           </div>
         </div>

@@ -1,163 +1,178 @@
-Aquí tienes la guía completa y estructurada del trabajo práctico **clasegitTP**, redactada paso a paso por alumno, sin omitir comandos ni su explicación técnica, resolviendo tus dudas puntuales sobre los comandos de GitHub, los Pull Requests, los flags de los comandos y el funcionamiento interno de fetch.
+Aquí tienes la guía completa y estructurada del trabajo práctico **clasegitTP**, ordenada paso a paso de forma pedagógica: cada concepto teórico se introduce exactamente en el momento en que se puede verificar y ejecutar en la práctica con comandos reales.
 
 ## **📌 Guía Técnica del Trabajo Práctico: clasegitTP**
 
-### **💡 Conceptos previos y aclaraciones clave**
+---
 
-* **¿La rama inicial es main por defecto?**  
-  Historicamente en Git la rama por defecto se llamaba master. Actualmente, la mayoría de instalaciones modernas y plataformas como GitHub usan main. El comando git branch \-M main fuerza que la rama actual pase a llamarse main explícitamente para garantizar compatibilidad total con GitHub.  
-* **Sintaxis de git commit \-am "mensaje":**  
-  Es una combinación de dos flags:  
-  * \-a (*all*): Selecciona automáticamente todos los archivos que ya han sido rastreados (*tracked*) por Git y han sido modificados, ahorrándote ejecutar git add. **Ojo:** No agrega archivos nuevos (*untracked*).  
-  * \-m (*message*): Le pasa el mensaje del commit directamente entre comillas desde la consola sin abrir un editor de texto (como Nano o Vim).  
-* **¿Se puede hacer un Pull Request desde la consola?**  
-  Git como herramienta de control de versiones **no incluye** el concepto de Pull Request (PR es una funcionalidad propia de plataformas web como GitHub, GitLab o Bitbucket). Por ende, con el comando nativo git no se hace un PR directamente; se realiza desde la interfaz gráfica de GitHub. *(Existe una herramienta CLI oficial llamada gh de GitHub que permite hacerlo, pero el flujo estándar de Git lo canaliza vía web).*  
-* **¿Qué hace exactamente git fetch?**  
-  git fetch descarga las novedades (ramas, commits, etiquetas) desde el servidor remoto a tu copia local, pero **sin alterar ni modificar los archivos de tu área de trabajo actual**. Actualiza tu "mapa local" de lo que pasa en GitHub (origin/main, origin/feature-x). Es una consulta segura para ver qué cambió antes de decidir fusionar (git merge). A diferencia de git pull (que descarga y aplica los cambios inmediatamente en tu código de forma automática), fetch te permite inspeccionar primero.
+### **👑 Fase 0: Inicialización del Repositorio (Docente / Líder)**
 
-### **💻 Pasos iniciales (Líder del Proyecto / Docente)**
+#### **💡 Concepto Clave 1: Rama `main` vs `master`**
+* **¿La rama inicial es `main` por defecto?**  
+  Históricamente en Git la rama por defecto se llamaba `master`. Actualmente, plataformas como GitHub usan `main`. El comando `git branch -M main` fuerza el renombrado de la rama actual a `main` para garantizar compatibilidad total con GitHub antes de subir el primer commit.
 
-*(Solo para inicializar el repositorio desde cero en GitHub y vincular la máquina local).*  
+#### **Comandos de Inicialización (Docente):**
 Si creas el repositorio vacío en GitHub, ejecutas en la terminal:
 
-Bash  
-echo "\# ClaseGitTP" \>\> README.md  
-git init  
-git add README.md  
-git commit \-m "first commit"  
-git branch \-M main  
-git remote add origin https://github.com/fiemcasals/ClaseGitTP.git  
-git push \-u origin main
+```bash
+echo "# ClaseGitTP" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/fiemcasals/ClaseGitTP.git
+git push -u origin main
+```
 
 **Explicación comando por comando:**
+> 1. **`echo "# ClaseGitTP" >> README.md`**: Crea un archivo de texto plano con el título del proyecto.  
+> 2. **`git init`**: Inicializa un repositorio Git local en la carpeta actual (`.git`).  
+> 3. **`git add README.md`**: Pasa el archivo al *Staging Area* (área de preparación).  
+> 4. **`git commit -m "first commit"`**: Guarda permanentemente el commit en el historial local.  
+> 5. **`git branch -M main`**: Renombra formalmente la rama activa a `main` (`-M` fuerza el cambio).  
+> 6. **`git remote add origin <URL>`**: Asocia tu repositorio local con el repositorio remoto en GitHub bajo el alias `origin`.  
+> 7. **`git push -u origin main`**: Sube el contenido a GitHub. El flag `-u` (*set-upstream*) vincula permanentemente la rama local `main` con `origin/main`.
 
-> 1. **echo "\# ClaseGitTP" \>\> README.md**: Crea un archivo de texto plano llamado README.md con el título del proyecto.  
-> 2. **git init**: Inicializa un repositorio Git local en la carpeta actual, creando el directorio oculto .git.  
-> 3. **git add README.md**: Pasa el archivo README.md del "Área de trabajo" al "Área de preparación" (*Staging Area*), indicando que formará parte de la próxima foto (commit).  
-> 4. **git commit \-m "first commit"**: Guarda permanentemente en el historial los archivos que estaban en el *Staging Area* con el mensaje especificado.  
-> 5. **git branch \-M main**: Renombra formalmente la rama actual a main. El flag \-M fuerza el renombrado incluso si la rama ya existía.  
-> 6. **git remote add origin \[https://github.com/fiemcasals/ClaseGitTP.git\](https://github.com/fiemcasals/ClaseGitTP.git)**: Asocia tu repositorio local con el repositorio remoto alojado en GitHub bajo el alias origin.  
-> 7. **git push \-u origin main**: Sube el contenido de la rama local main hacia el servidor remoto origin. El flag \-u (*set-upstream*) establece un vínculo permanente entre tu rama local main y la remota, permitiendo que en el futuro solo debas escribir git push o git pull.
+---
 
-**1.Fase 1: Preparación del entorno por Dev A:**Desarrollador A: Configuración e inicio del proyecto.  
-**1\. Clonar el repositorio remoto:**
+### **👨‍💻 Fase 1: Preparación del Entorno por Dev A**
 
-Bash  
-git clone https://github.com/fiemcasals/ClaseGitTP.git  
+#### **1. Clonar el repositorio remoto:**
+```bash
+git clone https://github.com/fiemcasals/ClaseGitTP.git
 cd ClaseGitTP
+```
 
-> * **git clone \<URL\>**: Copia íntegramente el repositorio remoto alojado en GitHub a la máquina local, incluyendo todo el historial de commits, ramas y archivos. Descarga la carpeta lista para trabajar y configura automáticamente el remoto origin.  
-> * **cd ClaseGitTP**: Cambia el directorio de la terminal para posicionarte dentro de la carpeta del proyecto.
+#### **💡 Concepto Clave 2: Sintaxis de `git commit -am` y las 3 Áreas de Git**
+* **Desglose de flags:**
+  * `-a` (*all/tracked*): Auto-selecciona todos los archivos que ya están bajo seguimiento (*tracked*) y han sido modificados.
+  * `-m` (*message*): Pasa el mensaje directamente entre comillas.
+* **⚠️ La trampa de los archivos nuevos (*untracked*):**
+  El flag `-a` **NO incluye archivos nuevos**. Cuando creas `receta.txt` por primera vez, es **obligatorio** hacer primero `git add receta.txt`.
 
-**2\. Crear el archivo base receta.txt:**
+#### **2. Crear el archivo base `receta.txt`:**
+Crea el archivo `receta.txt` con el siguiente contenido:
 
-Crea el archivo receta.txt con el siguiente contenido exacto:
+```plaintext
+# Receta de Pizza Casera
 
-Plaintext  
-\# Receta de Pizza Casera
+Ingredientes:
+- 500g de harina
 
-Ingredientes:  
-\- 500g de harina
+Instrucciones:
+1. Mezclar la harina con agua.
+```
 
-Instrucciones:  
-1\. Mezclar la harina con agua.
-
-**3\. Registrar y subir la estructura inicial a main:**
-
-Bash  
-git status  
-git add receta.txt  
-git commit \-m "docs: agregar estructura inicial de la receta"  
+#### **3. Registrar y subir la estructura inicial a `main`:**
+```bash
+git status
+git add receta.txt
+git commit -m "docs: agregar estructura inicial de la receta"
 git push origin main
+```
 
-> * **git status**: Muestra el estado del directorio de trabajo. Informa qué archivos han sido modificados, cuáles no están siendo rastreados (*untracked*) y en qué rama estás parado.  
-> * **git add receta.txt**: Coloca el nuevo archivo en el área de preparación (*Staging Area*).  
-> * **git commit \-m "..."**: Asienta los cambios en el historial local.  
-> * **git push origin main**: Envía los commits de la rama local main a la rama main del servidor origin (GitHub).
+---
 
-**2.Fase 2: Clonado del proyecto por Dev B:**Desarrollador B: Incorporación al proyecto.  
-*(Dev B debe tener permisos de colaborador agregados en la pestaña Settings \> Collaborators del repositorio).*
+### **👩‍💻 Fase 2: Incorporación de Dev B (Permisos y Clonado)**
+*(Dev B debe tener permisos de colaborador agregados en la pestaña Settings > Collaborators del repositorio).*
 
-**1\. Clonar el repositorio:**
-
-Bash  
-git clone https://github.com/fiemcasals/ClaseGitTP.git  
+```bash
+git clone https://github.com/fiemcasals/ClaseGitTP.git
 cd ClaseGitTP
+```
+*(Dev B ya obtiene el archivo `receta.txt` creado por Dev A).*
 
-*(Dev B ya obtiene el archivo receta.txt creado por Dev A).*
+---
 
-#### **3.Fase 3: Desarrollo de Features (Paralelo):Trabajo en paralelo en ramas separadas.**
+### **🔀 Fase 3: Desarrollo de Features en Paralelo**
 
-👤 Acciones de Dev A (Añade ingredientes)
+#### **👤 Acciones de Dev A (Añade ingredientes en rama separada):**
+```bash
+git checkout -b feature/ingredientes
+```
+> * **`git checkout -b <nombre>`**: Crea una nueva rama local y se posiciona en ella (alternativa moderna: `git switch -c <nombre>`).
 
-Bash  
-git checkout \-b feature/ingredientes
-
-> * **git checkout \-b \<nombre-rama\>**: Crea una nueva rama local y se cambia a ella en un solo paso. *(Nota: En versiones modernas de Git también puede usarse git switch \-c \<nombre-rama\>).*
-
-Edita receta.txt agregando las siguientes líneas al final de los ingredientes:
-
-Plaintext  
-\- 10g de levadura  
-\- 1 cucharada de sal
+Edita `receta.txt` agregando levadura y sal:
+```plaintext
+- 10g de levadura
+- 1 cucharada de sal
+```
 
 Registra y sube la rama:
-
-Bash  
-git add receta.txt  
-git commit \-m "feat: agregar levadura y sal"  
+```bash
+git add receta.txt
+git commit -m "feat: agregar levadura y sal"
 git push origin feature/ingredientes
+```
 
-> * **git push origin feature/ingredientes**: Crea y sube la rama feature/ingredientes al repositorio remoto de GitHub.
+#### **💡 Concepto Clave 3: ¿Qué es un Pull Request? Git CLI vs GitHub**
+* Dev A ya subió su rama `feature/ingredientes` a GitHub.
+* **Git nativo (CLI):** Solo maneja branches y merges locales/remotos directos. No tiene la función de "Pull Request".
+* **GitHub (Plataforma Web):** Introduce el Pull Request (PR) como mecanismo de *Code Review* (revisión de código colaborativa, discusión y validación) antes de fusionar a la rama `main`.
 
-**En la web de GitHub (Dev A):**
-
+#### **En la web de GitHub (Dev A realiza el Merge):**
 > 1. Va a la pestaña **Pull Requests** y presiona **New Pull Request**.  
-> 2. Selecciona comparar main con feature/ingredientes.  
-> 3. Presiona **Create Pull Request** y luego hace clic en **Merge Pull Request** para fusionar los cambios con la rama main.
+> 2. Selecciona `base: main` 🠔 `compare: feature/ingredientes`.  
+> 3. Presiona **Create Pull Request** y luego clic en **Merge Pull Request** y **Confirm Merge**.
 
-#### ---
+---
 
-**👤 Acciones de Dev B (Añade pasos de preparación)**
+#### **👤 Acciones de Dev B (Añade pasos en paralelo):**
+```bash
+git checkout -b feature/instrucciones
+```
 
-Bash  
-git checkout \-b feature/instrucciones
-
-Edita receta.txt agregando las siguientes líneas al final de las instrucciones:
-
-Plaintext  
-2\. Dejar leudar 1 hora.  
-3\. Hornear a 200 grados.
+Edita `receta.txt` agregando los pasos 2 y 3:
+```plaintext
+2. Dejar leudar 1 hora.
+3. Hornear a 200 grados.
+```
 
 Registra y sube la rama:
-
-Bash  
-git add receta.txt  
-git commit \-m "feat: agregar pasos de leudado y horneado"  
+```bash
+git add receta.txt
+git commit -m "feat: agregar pasos de leudado y horneado"
 git push origin feature/instrucciones
+```
 
-**En la web de GitHub (Dev B):**
+#### **En la web de GitHub (Dev B):**
+> 1. Abre el PR de `feature/instrucciones` hacia `main`.  
+> 2. Realiza el **Merge**. Como Dev A y Dev B editaron líneas distintas (*hunks* independientes), GitHub resuelve la integración automáticamente sin conflictos.
 
-> 1. Entra a la solapa **Pull Requests**.  
-> 2. Crea el PR de feature/instrucciones hacia main.  
-> 3. Realiza el **Merge**. *(Como Dev A y Dev B editaron líneas completamente distintas del archivo, GitHub resuelve la integración automáticamente sin conflictos).*
+---
 
-#### ---
+#### **💡 Concepto Clave 4: `git fetch` vs `git pull` (Inspección Segura sin perder datos locales)**
+* **Situación real:** En GitHub `main` ahora tiene tanto los ingredientes como las instrucciones. Pero en tu máquina local puedes estar trabajando en otra rama o con cambios propios.
+* **¿Qué hace `git fetch origin`?**  
+  Descarga todas las novedades del servidor remoto al puntero `origin/main` en tu base de datos interna, **sin tocar ni modificar tus archivos de trabajo en disco**. Tus datos locales están 100% seguros.
+* **Herramientas de inspección en vivo:**
+  ```bash
+  # 1. Consulta silenciosa y segura al servidor:
+  git fetch origin
 
-**🔄 Sincronización final de la Fase 3 (Ambos desarrolladores)**
+  # 2. Ver qué commits nuevos hay en GitHub que aún no integraste:
+  git log HEAD..origin/main --oneline
 
+  # 3. Comparar las diferencias exactas de código:
+  git diff HEAD origin/main
+
+  # 4. Leer el archivo remoto completo sin modificar tu archivo local en disco:
+  git show origin/main:receta.txt
+  ```
+* **¿Qué hace `git pull origin main`?**  
+  Es el atajo automático que ejecuta `git fetch` + `git merge origin/main` aplicando los cambios inmediatamente sobre tus archivos.
+
+#### **🔄 Sincronización final de la Fase 3 (Ambos desarrolladores):**
 Ambos vuelven a la rama principal y descargan los cambios integrados:
-
-Bash  
-git checkout main  
+```bash
+git checkout main
 git pull origin main
+```
 
-> * **git checkout main**: Se cambia a la rama local main.  
-> * **git pull origin main**: Descarga e integra (combina) automáticamente los últimos cambios de la rama main remota a tu rama main local. *(Es equivalente a ejecutar git fetch seguido de git merge).*
+---
 
-#### **4.Fase 4: Provocar y Resolver un Conflicto:Simulación y resolución de conflictos de integración.**
+### **💥 Fase 4: Provocar y Resolver un Conflicto**
 
-👤 Paso 1: Dev A edita y pushea primero
+#### **👤 Paso 1: Dev A edita y pushea primero**
 
 Bash  
 git checkout \-b fix/tiempo-a
