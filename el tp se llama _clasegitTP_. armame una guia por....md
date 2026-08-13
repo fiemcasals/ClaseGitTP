@@ -146,8 +146,9 @@ git push origin feature/ingredientes
 
 #### **👤 Acciones de Dev B (Añade pasos en paralelo):**
 ```bash
-git checkout -b feature/instrucciones
+git switch -c feature/instrucciones
 ```
+*(Equivalente clásico: `git checkout -b feature/instrucciones`)*
 
 Edita `receta.txt` agregando los pasos 2 y 3:
 ```plaintext
@@ -177,13 +178,13 @@ git push origin feature/instrucciones
   # 1. Consulta silenciosa y segura al servidor:
   git fetch origin
 
-  # 2. Ver qué commits nuevos hay en GitHub que aún no integraste:
+  # 2. Revisa qué commits nuevos hay en GitHub que aún no integraste:
   git log HEAD..origin/main --oneline
 
-  # 3. Comparar las diferencias exactas de código:
+  # 3. Compara las diferencias exactas de código:
   git diff HEAD origin/main
 
-  # 4. Leer el archivo remoto completo sin modificar tu archivo local en disco:
+  # 4. Lee el archivo remoto completo sin modificar tu archivo local en disco:
   git show origin/main:receta.txt
   ```
 * **¿Qué hace `git pull origin main`?**  
@@ -192,9 +193,10 @@ git push origin feature/instrucciones
 #### **🔄 Sincronización final de la Fase 3 (Ambos desarrolladores):**
 Ambos vuelven a la rama principal y descargan los cambios integrados:
 ```bash
-git checkout main
+git switch main
 git pull origin main
 ```
+*(Equivalente clásico: `git checkout main`)*
 
 ---
 
@@ -202,115 +204,115 @@ git pull origin main
 
 #### **👤 Paso 1: Dev A edita y pushea primero**
 
-Bash  
-git checkout \-b fix/tiempo-a
+```bash
+git switch -c fix/tiempo-a
+```
 
-Modifica la línea del horno en receta.txt:
-
-3\. Hornear a 220 grados por 15 minutos.
+Modifica la línea del horno en `receta.txt`:
+```plaintext
+3. Hornear a 220 grados por 15 minutos.
+```
 
 Registra y sube la modificación:
-
-Bash  
-git commit \-am "fix: subir temperatura de horneado a 220"  
+```bash
+git commit -am "fix: subir temperatura de horneado a 220"
 git push origin fix/tiempo-a
+```
 
-> * **git commit \-am "..."**: Aplica el add de los archivos modificados que ya están bajo seguimiento y realiza el commit en un solo paso.
+Dev A va a GitHub, abre el **Pull Request** de `fix/tiempo-a` y hace **Merge** inmediatamente hacia `main`.
 
-Dev A va a GitHub, abre el **Pull Request** y hace **Merge** inmediatamente hacia main.
+---
 
-#### ---
+#### **👤 Paso 2: Dev B edita la misma línea (sin actualizar su rama)**
 
-**👤 Paso 2: Dev B edita la misma línea (sin actualizar su rama)**
+```bash
+git switch -c fix/tiempo-b
+```
 
-Bash  
-git checkout \-b fix/tiempo-b
-
-Edita **la misma línea** del horno en receta.txt:
-
-3\. Hornear a 180 grados por 30 minutos.
+Edita **la misma línea** del horno en `receta.txt`:
+```plaintext
+3. Hornear a 180 grados por 30 minutos.
+```
 
 Registra localmente sus cambios:
-
-Bash  
-git commit \-am "fix: bajar temperatura a 180 para coccion lenta"  
+```bash
+git commit -am "fix: bajar temperatura a 180 para coccion lenta"
 git push origin fix/tiempo-b
+```
 
-#### ---
+---
 
-**👤 Paso 3: Dev B intenta actualizar e integrar**
+#### **👤 Paso 3: Dev B intenta actualizar e integrar**
 
-Antes de hacer el PR en GitHub, Dev B intenta traer los cambios actuales de main a su rama local para validar que todo esté al día:
+Antes de hacer el PR en GitHub, Dev B intenta traer los cambios actuales de `main` a su rama local para validar:
 
-Bash  
-git fetch origin  
+```bash
+git fetch origin
 git merge origin/main
-
-> * **git fetch origin**: Trae la información actualizada de todo el repositorio remoto (sabe que origin/main avanzó con el commit de Dev A), pero no toca los archivos locales de Dev B.  
-> * **git merge origin/main**: Intenta fusionar la rama origin/main en la rama actual (fix/tiempo-b).
+```
 
 **Respuesta de la terminal para Dev B:**
-
-Plaintext  
-CONFLICT (content): Merge conflict in receta.txt  
+```plaintext
+CONFLICT (content): Merge conflict in receta.txt
 Automatic merge failed; fix conflicts and then commit the result.
+```
 
-#### ---
+---
 
-**👤 Paso 4: Resolución manual del conflicto por Dev B**
+#### **👤 Paso 4: Resolución manual del conflicto por Dev B**
 
-Dev B abre el archivo receta.txt en su editor de texto y observa las marcas generadas por Git:
+Dev B abre el archivo `receta.txt` en su editor de texto y observa las marcas generadas por Git:
 
-Plaintext  
-\<\<\<\<\<\<\< HEAD  
-3\. Hornear a 180 grados por 30 minutos.  
-\=======  
-3\. Hornear a 220 grados por 15 minutos.  
-\>\>\>\>\>\>\> origin/main
+```plaintext
+<<<<<<< HEAD
+3. Hornear a 180 grados por 30 minutos.
+=======
+3. Hornear a 220 grados por 15 minutos.
+>>>>>>> origin/main
+```
 
 **Explicación de marcas:**
-
-> * \<\<\<\<\<\<\< HEAD: Inicio del cambio local de Dev B.  
-> * \=======: Separador de propuestas.  
-> * \>\>\>\>\>\>\> origin/main: Cambio entrante desde la rama main remota (subido por Dev A).
+> * `<<<<<<< HEAD`: Inicio del cambio local de Dev B.  
+> * `=======`: Separador de propuestas.  
+> * `>>>>>>> origin/main`: Cambio entrante desde la rama main remota (subido por Dev A).
 
 **Acción de Dev B:**
-
-> 1. Consulta con Dev A y acuerdan dejar un valor intermedio: 3\. Hornear a 200 grados por 20 minutos.  
-> 2. Borra manualmente las líneas con los símbolos \<\<\<\<\<\<\<, \======= y \>\>\>\>\>\>\>.  
+> 1. Consulta con Dev A y acuerdan dejar un valor intermedio: `3. Hornear a 200 grados por 20 minutos.`  
+> 2. Borra manualmente las líneas con los símbolos `<<<<<<<`, `=======` y `>>>>>>>`.  
 > 3. Guarda el archivo.  
 > 4. Concluye el merge ejecutando:
 
-Bash  
-git status  
-git add receta.txt  
-git commit \-m "fix: resolver conflicto de temperatura de horneado"  
+```bash
+git status
+git add receta.txt
+git commit -m "fix: resolver conflicto de temperatura de horneado"
 git push origin fix/tiempo-b
+```
 
-> * **git add receta.txt**: Notifica a Git que el conflicto en este archivo ha sido resuelto.  
-> * **git commit \-m "..."**: Crea el commit de resolución de merge.  
-> * **git push origin fix/tiempo-b**: Sube la rama corregida a GitHub.  
-> 5. Dev B va a GitHub, abre el **Pull Request** de fix/tiempo-b hacia main y realiza el **Merge** final.
+> 5. Dev B va a GitHub, abre el **Pull Request** de `fix/tiempo-b` hacia `main` y realiza el **Merge** final.
 
-**5.Fase 5: Inspección del árbol de ramas:**Visualización del árbol de commits.  
-Ambos desarrolladores sincronizan sus ramas locales main:
+---
 
-Bash  
-git checkout main  
+### **🌳 Fase 5: Inspección del árbol de ramas**
+
+Ambos desarrolladores sincronizan sus ramas locales `main`:
+
+```bash
+git switch main
 git pull origin main
+```
 
 **Visualización por consola:**
+```bash
+git log --graph --oneline --all
+```
 
-Bash  
-git log \--graph \--oneline \--all
-
-> * **git log**: Muestra el historial de commits.  
-> * **\--graph**: Dibuja un gráfico en caracteres ASCII mostrando la estructura de ramas y fusiones.  
-> * **\--oneline**: Condensa cada commit a una sola línea (muestra el identificador Hash corto y el mensaje).  
-> * **\--all**: Muestra los commits de todas las ramas locales y remotas, no solo de la actual.
+> * **`git log`**: Muestra el historial de commits.  
+> * **`--graph`**: Dibuja un gráfico en caracteres ASCII mostrando la estructura de ramas y fusiones.  
+> * **`--oneline`**: Condensa cada commit a una sola línea (hash corto y mensaje).  
+> * **`--all`**: Muestra los commits de todas las ramas locales y remotas, no solo de la actual.
 
 **Visualización gráfica en GitHub:**
-
-> 1. Ingresan a \[https://github.com/fiemcasals/ClaseGitTP\](https://github.com/fiemcasals/ClaseGitTP).  
+> 1. Ingresan a [https://github.com/fiemcasals/ClaseGitTP](https://github.com/fiemcasals/ClaseGitTP).  
 > 2. Hacen clic en la pestaña **Insights** (o **Graphs**) y seleccionan **Network**.  
 > 3. Observarán la representación visual interactiva con los puntos de bifurcación de las ramas feature y fix, los commits individuales y los puntos donde se volvieron a unir a la rama main.
