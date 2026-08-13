@@ -85,11 +85,39 @@ cd ClaseGitTP
 
 ### **🔀 Fase 3: Desarrollo de Features en Paralelo**
 
+#### **💡 Concepto Clave: Gestión de Ramas — Crear, Listar y Cambiar (`git checkout` vs `git switch`)**
+* **¿Qué es una rama en Git?**  
+  No es una copia pesada de archivos. Es un **puntero liviano** (un archivo de texto de 41 bytes) que apunta al último commit de esa línea de trabajo.
+* **Comandos esenciales para cambiar de rama:**
+  ```bash
+  # 1. Ver qué ramas existen localmente y cuál está activa (*):
+  git branch
+
+  # 2. Crear y cambiarse a una nueva rama en un solo paso:
+  git switch -c feature/ingredientes
+  # (Sintaxis clásica: git checkout -b feature/ingredientes)
+
+  # 3. Cambiar a una rama ya existente (ej: volver a main):
+  git switch main
+  # (Sintaxis clásica: git checkout main)
+
+  # 4. Volver a la rama anterior al instante:
+  git switch -
+  # (Sintaxis clásica: git checkout -)
+
+  # 5. Listar ramas locales y remotas en GitHub:
+  git branch -a
+  ```
+* **¿Qué pasa con tus archivos en disco?**  
+  Git actualiza los archivos de tu carpeta de trabajo (*Working Directory*) para reflejar exactamente el estado del commit de la rama a la que te mudas.
+
+---
+
 #### **👤 Acciones de Dev A (Añade ingredientes en rama separada):**
 ```bash
-git checkout -b feature/ingredientes
+git switch -c feature/ingredientes
 ```
-> * **`git checkout -b <nombre>`**: Crea una nueva rama local y se posiciona en ella (alternativa moderna: `git switch -c <nombre>`).
+> * **`git switch -c <nombre>`**: Crea una nueva rama local y se posiciona en ella (equivalente clásico: `git checkout -b <nombre>`).
 
 Edita `receta.txt` agregando levadura y sal:
 ```plaintext

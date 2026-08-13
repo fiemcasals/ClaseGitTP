@@ -180,11 +180,11 @@
             <div class="step-number">3</div>
             <div class="step-role emerald">🔀 Paralelo</div>
             <h3>Feature Branches</h3>
-            <p>Dev A (ingredientes) y Dev B (instrucciones). Creación de Pull Requests y Merges sin conflicto.</p>
+            <p>Dev A (ingredientes) y Dev B (instrucciones). Navegación de ramas, PRs y Merges sin conflicto.</p>
             <div class="step-arrow">→</div>
           </div>
 
-          <div class="workflow-step-card alert-step" onclick="presentation.goToSlide(16)">
+          <div class="workflow-step-card alert-step" onclick="presentation.goToSlide(17)">
             <div class="step-number">4</div>
             <div class="step-role red">💥 Conflicto</div>
             <h3>Choque & Resolución</h3>
@@ -192,7 +192,7 @@
             <div class="step-arrow">→</div>
           </div>
 
-          <div class="workflow-step-card" onclick="presentation.goToSlide(21)">
+          <div class="workflow-step-card" onclick="presentation.goToSlide(22)">
             <div class="step-number">5</div>
             <div class="step-role blue">🌳 Inspección</div>
             <h3>Árbol de Commits</h3>
@@ -612,9 +612,93 @@ Receiving objects: 100% (6/6), done.</span>
     </section>
 
     <!-- ==========================================
-         SLIDE 9: FASE 3.1 - DEV A FEATURE INGREDIENTES
+         SLIDE 9: CONCEPTOS CLAVE - CAMBIAR DE RAMAS
          ========================================== -->
-    <section class="slide" id="slide-9" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 3.1: Dev A crea feature/ingredientes">
+    <section class="slide" id="slide-9" data-phase="Fase 3: Conceptos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto: Crear, Listar y Cambiar de Ramas (checkout vs switch)">
+      <div class="slide-inner">
+        <div class="slide-header">
+          <span class="step-tag">Conceptos Clave & Navegación de Ramas</span>
+          <h2>¿Cómo crear, listar y cambiar de ramas en Git?</h2>
+          <p class="slide-desc">Dominando el movimiento entre ramas con la sintaxis clásica (<code>git checkout</code>) y el comando moderno dedicado (<code>git switch</code>).</p>
+        </div>
+
+        <div class="two-col-layout">
+          <div class="col-content">
+            <div class="concept-card highlight-border">
+              <div class="concept-badge blue">🌿 Anatomía de una Rama</div>
+              <h3>¿Qué es realmente una rama?</h3>
+              <p>En Git, una rama no es una copia pesada de archivos; es un <strong>puntero móvil y liviano</strong> que apunta al último commit realizado en esa línea de desarrollo.</p>
+            </div>
+
+            <div class="flags-breakdown-card">
+              <h3>Los dos enfoques para cambiar de rama:</h3>
+              
+              <div class="flag-item">
+                <div class="flag-tag"><code>git switch</code> (Moderno - Git 2.23+)</div>
+                <div class="flag-desc">
+                  <strong>Dedicado exclusivamente a ramas:</strong> Más seguro y claro. Usas <code>git switch -c &lt;nombre&gt;</code> para crear y cambiar, o <code>git switch &lt;nombre&gt;</code> para moverte a una existente.
+                </div>
+              </div>
+
+              <div class="flag-item">
+                <div class="flag-tag"><code>git checkout</code> (Clásico / Universal)</div>
+                <div class="flag-desc">
+                  <strong>El comando histórico:</strong> Usas <code>git checkout -b &lt;nombre&gt;</code> para crear y cambiar, o <code>git checkout &lt;nombre&gt;</code> para moverte.
+                </div>
+              </div>
+            </div>
+
+            <div class="tip-box">
+              <div class="tip-title">⚡ Atajo Ninja: Alternar con la rama previa</div>
+              <p>Escribe <code>git switch -</code> (o <code>git checkout -</code>) para saltar instantáneamente a la última rama en la que estabas parado (igual que <code>cd -</code> en la consola).</p>
+            </div>
+          </div>
+
+          <div class="col-visual">
+            <div class="terminal-card">
+              <div class="terminal-header">
+                <div class="term-dots"><span></span><span></span><span></span></div>
+                <span class="term-title">bash — Comandos de Navegación de Ramas</span>
+                <button class="btn-copy-code" onclick="presentation.copyCode(this)">Copiar</button>
+              </div>
+              <pre class="term-body"><code><span class="c-comment"># 1. Ver ramas existentes y cuál está activa (*):</span>
+<span class="c-prompt">$ </span><span class="c-cmd">git branch</span>
+* <span class="c-green">main</span>
+
+<span class="c-comment"># 2. Crear y cambiar a una rama nueva:</span>
+<span class="c-prompt">$ </span><span class="c-cmd">git switch -c feature/ingredientes</span>
+<span class="c-out">Switched to a new branch 'feature/ingredientes'</span>
+<span class="c-comment"># (Equivalente clásico: git checkout -b feature/ingredientes)</span>
+
+<span class="c-comment"># 3. Cambiar a una rama ya existente:</span>
+<span class="c-prompt">$ </span><span class="c-cmd">git switch main</span>
+<span class="c-out">Switched to branch 'main'</span>
+<span class="c-comment"># (Equivalente clásico: git checkout main)</span>
+
+<span class="c-comment"># 4. Volver a la rama anterior al instante:</span>
+<span class="c-prompt">$ </span><span class="c-cmd">git switch -</span>
+<span class="c-out">Switched to branch 'feature/ingredientes'</span>
+
+<span class="c-comment"># 5. Listar todas las ramas (locales + remotas en GitHub):</span>
+<span class="c-prompt">$ </span><span class="c-cmd">git branch -a</span>
+<span class="c-out">* feature/ingredientes
+  main
+  remotes/origin/main</span></code></pre>
+            </div>
+
+            <div class="info-card">
+              <h4>📂 ¿Qué le pasa a tus archivos en disco?</h4>
+              <p>Al cambiar de rama, Git actualiza en milisegundos tu carpeta de trabajo (*Working Directory*) para mostrarte exactamente el estado de los archivos en esa rama. Si tienes cambios sin guardar que chocan, Git te alertará para proteger tus datos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 10: FASE 3.1 - DEV A FEATURE INGREDIENTES
+         ========================================== -->
+    <section class="slide" id="slide-10" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 3.1: Dev A crea feature/ingredientes">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -634,10 +718,9 @@ Receiving objects: 100% (6/6), done.</span>
                 <button class="btn-copy-code" onclick="presentation.copyCode(this)">Copiar</button>
               </div>
               <pre class="term-body"><code><span class="c-comment"># 1. Crear y cambiar a la rama feature/ingredientes:</span>
-<span class="c-prompt">$ </span><span class="c-cmd">git checkout -b feature/ingredientes</span>
+<span class="c-prompt">$ </span><span class="c-cmd">git switch -c feature/ingredientes</span>
 <span class="c-out">Switched to a new branch 'feature/ingredientes'</span>
-
-<span class="c-comment"># (Nota: git switch -c feature/ingredientes es la alternativa moderna)</span>
+<span class="c-comment"># (También válido: git checkout -b feature/ingredientes)</span>
 
 <span class="c-comment"># 2. Tras editar receta.txt, registra y sube:</span>
 <span class="c-prompt">$ </span><span class="c-cmd">git add receta.txt</span>
@@ -679,9 +762,9 @@ Receiving objects: 100% (6/6), done.</span>
     </section>
 
     <!-- ==========================================
-         SLIDE 10: CONCEPTOS CLAVE #3 (Pull Requests)
+         SLIDE 11: CONCEPTOS CLAVE #3 (Pull Requests)
          ========================================== -->
-    <section class="slide" id="slide-10" data-phase="Fase 3: Conceptos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto 3: Pull Requests en Git vs GitHub">
+    <section class="slide" id="slide-11" data-phase="Fase 3: Conceptos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto 3: Pull Requests en Git vs GitHub">
       <div class="slide-inner">
         <div class="slide-header">
           <span class="step-tag">Conceptos Clave & Fundamentos</span>
@@ -727,9 +810,9 @@ Receiving objects: 100% (6/6), done.</span>
     </section>
 
     <!-- ==========================================
-         SLIDE 11: FASE 3.2 - DEV A PULL REQUEST EN GITHUB
+         SLIDE 12: FASE 3.2 - DEV A PULL REQUEST EN GITHUB
          ========================================== -->
-    <section class="slide" id="slide-11" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 3.2: Pull Request & Merge de Dev A en GitHub">
+    <section class="slide" id="slide-12" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 3.2: Pull Request & Merge de Dev A en GitHub">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -789,9 +872,9 @@ Receiving objects: 100% (6/6), done.</span>
     </section>
 
     <!-- ==========================================
-         SLIDE 12: FASE 3.3 - DEV B FEATURE INSTRUCCIONES
+         SLIDE 13: FASE 3.3 - DEV B FEATURE INSTRUCCIONES
          ========================================== -->
-    <section class="slide" id="slide-12" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 3.3: Dev B crea feature/instrucciones">
+    <section class="slide" id="slide-13" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 3.3: Dev B crea feature/instrucciones">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -810,9 +893,10 @@ Receiving objects: 100% (6/6), done.</span>
                 <span class="term-title">bash — Terminal Dev B</span>
                 <button class="btn-copy-code" onclick="presentation.copyCode(this)">Copiar</button>
               </div>
-              <pre class="term-body"><code><span class="c-comment"># 1. Crear rama feature/instrucciones:</span>
-<span class="c-prompt">$ </span><span class="c-cmd">git checkout -b feature/instrucciones</span>
+              <pre class="term-body"><code><span class="c-comment"># 1. Crear y cambiar a la rama feature/instrucciones:</span>
+<span class="c-prompt">$ </span><span class="c-cmd">git switch -c feature/instrucciones</span>
 <span class="c-out">Switched to a new branch 'feature/instrucciones'</span>
+<span class="c-comment"># (También válido: git checkout -b feature/instrucciones)</span>
 
 <span class="c-comment"># 2. Edita receta.txt agregando los pasos 2 y 3:</span>
 <span class="c-prompt">$ </span><span class="c-cmd">git add receta.txt</span>
@@ -853,9 +937,9 @@ Receiving objects: 100% (6/6), done.</span>
     </section>
 
     <!-- ==========================================
-         SLIDE 13: FASE 3.4 - DEV B PULL REQUEST SIN CONFLICTO
+         SLIDE 14: FASE 3.4 - DEV B PULL REQUEST SIN CONFLICTO
          ========================================== -->
-    <section class="slide" id="slide-13" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 3.4: PR de Dev B y Auto-Merge">
+    <section class="slide" id="slide-14" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 3.4: PR de Dev B y Auto-Merge">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -920,9 +1004,9 @@ Receiving objects: 100% (6/6), done.</span>
     </section>
 
     <!-- ==========================================
-         SLIDE 14: CONCEPTOS CLAVE #4 (git fetch vs git pull)
+         SLIDE 15: CONCEPTOS CLAVE #4 (git fetch vs git pull)
          ========================================== -->
-    <section class="slide" id="slide-14" data-phase="Fase 3: Conceptos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto 4: git fetch vs git pull (Inspección Segura)">
+    <section class="slide" id="slide-15" data-phase="Fase 3: Conceptos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto 4: git fetch vs git pull (Inspección Segura)">
       <div class="slide-inner">
         <div class="slide-header">
           <span class="step-tag">Conceptos Clave & Inspección Segura</span>
@@ -991,9 +1075,9 @@ Receiving objects: 100% (6/6), done.</span>
     </section>
 
     <!-- ==========================================
-         SLIDE 15: FASE 3.5 - SINCRONIZACIÓN AMBOS DEVS
+         SLIDE 16: FASE 3.5 - SINCRONIZACIÓN AMBOS DEVS
          ========================================== -->
-    <section class="slide" id="slide-15" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev A & Dev B" data-role-avatar="🔄" data-title="Fase 3.5: Sincronización Final de la Fase 3">
+    <section class="slide" id="slide-16" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev A & Dev B" data-role-avatar="🔄" data-title="Fase 3.5: Sincronización Final de la Fase 3">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -1013,8 +1097,8 @@ Receiving objects: 100% (6/6), done.</span>
                 <span class="term-title">bash — Terminal Dev A y Dev B (Ambos ejecutan)</span>
                 <button class="btn-copy-code" onclick="presentation.copyCode(this)">Copiar</button>
               </div>
-              <pre class="term-body"><code><span class="c-comment"># 1. Regresar a la rama principal:</span>
-<span class="c-prompt">$ </span><span class="c-cmd">git checkout main</span>
+              <pre class="term-body"><code><span class="c-comment"># 1. Regresar a la rama principal (con switch o checkout):</span>
+<span class="c-prompt">$ </span><span class="c-cmd">git switch main</span>
 <span class="c-out">Switched to branch 'main'</span>
 
 <span class="c-comment"># 2. Descargar los merges de GitHub:</span>
@@ -1050,7 +1134,7 @@ Instrucciones:
 
             <div class="tip-box">
               <div class="tip-title">⭐ Buena Práctica de Oro</div>
-              <p>Siempre hacer <code>git checkout main</code> y <code>git pull origin main</code> al terminar una tarea para comenzar la siguiente siempre desde la última versión real del equipo.</p>
+              <p>Siempre hacer <code>git switch main</code> y <code>git pull origin main</code> al terminar una tarea para comenzar la siguiente siempre desde la última versión real del equipo.</p>
             </div>
           </div>
         </div>
@@ -1058,9 +1142,9 @@ Instrucciones:
     </section>
 
     <!-- ==========================================
-         SLIDE 16: FASE 4.1 - CONFLICTO PASO 1 (DEV A)
+         SLIDE 17: FASE 4.1 - CONFLICTO PASO 1 (DEV A)
          ========================================== -->
-    <section class="slide" id="slide-16" data-phase="Fase 4: Conflicto & Resolución" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 4.1: Dev A modifica temperatura a 220°">
+    <section class="slide" id="slide-17" data-phase="Fase 4: Conflicto & Resolución" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 4.1: Dev A modifica temperatura a 220°">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -1080,7 +1164,7 @@ Instrucciones:
                 <button class="btn-copy-code" onclick="presentation.copyCode(this)">Copiar</button>
               </div>
               <pre class="term-body"><code><span class="c-comment"># 1. Crear rama fix/tiempo-a:</span>
-<span class="c-prompt">$ </span><span class="c-cmd">git checkout -b fix/tiempo-a</span>
+<span class="c-prompt">$ </span><span class="c-cmd">git switch -c fix/tiempo-a</span>
 
 <span class="c-comment"># 2. Modifica receta.txt: "3. Hornear a 220 grados por 15 minutos."</span>
 <span class="c-prompt">$ </span><span class="c-cmd">git commit -am "fix: subir temperatura de horneado a 220"</span>
@@ -1118,9 +1202,9 @@ Instrucciones:
     </section>
 
     <!-- ==========================================
-         SLIDE 17: FASE 4.2 - CONFLICTO PASO 2 (DEV B)
+         SLIDE 18: FASE 4.2 - CONFLICTO PASO 2 (DEV B)
          ========================================== -->
-    <section class="slide" id="slide-17" data-phase="Fase 4: Conflicto & Resolución" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 4.2: Dev B modifica la misma línea a 180°">
+    <section class="slide" id="slide-18" data-phase="Fase 4: Conflicto & Resolución" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 4.2: Dev B modifica la misma línea a 180°">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -1140,7 +1224,7 @@ Instrucciones:
                 <button class="btn-copy-code" onclick="presentation.copyCode(this)">Copiar</button>
               </div>
               <pre class="term-body"><code><span class="c-comment"># 1. Dev B crea su rama fix/tiempo-b:</span>
-<span class="c-prompt">$ </span><span class="c-cmd">git checkout -b fix/tiempo-b</span>
+<span class="c-prompt">$ </span><span class="c-cmd">git switch -c fix/tiempo-b</span>
 
 <span class="c-comment"># 2. Modifica la MISMA línea: "3. Hornear a 180 grados por 30 minutos."</span>
 <span class="c-prompt">$ </span><span class="c-cmd">git commit -am "fix: bajar temperatura a 180 para coccion lenta"</span>
@@ -1179,9 +1263,9 @@ Instrucciones:
     </section>
 
     <!-- ==========================================
-         SLIDE 18: FASE 4.3 - DEV B FETCH + MERGE = CONFLICTO
+         SLIDE 19: FASE 4.3 - DEV B FETCH + MERGE = CONFLICTO
          ========================================== -->
-    <section class="slide" id="slide-18" data-phase="Fase 4: Conflicto & Resolución" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 4.3: Dev B ejecuta fetch + merge y ¡BOOM!">
+    <section class="slide" id="slide-19" data-phase="Fase 4: Conflicto & Resolución" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 4.3: Dev B ejecuta fetch + merge y ¡BOOM!">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -1235,9 +1319,9 @@ Instrucciones:
     </section>
 
     <!-- ==========================================
-         SLIDE 19: FASE 4.4 - ANATOMÍA DE MARCAS DE CONFLICTO
+         SLIDE 20: FASE 4.4 - ANATOMÍA DE MARCAS DE CONFLICTO
          ========================================== -->
-    <section class="slide" id="slide-19" data-phase="Fase 4: Conflicto & Resolución" data-role="Análisis Técnico" data-role-avatar="🔍" data-title="Fase 4.4: Anatomía de las Marcas de Conflicto">
+    <section class="slide" id="slide-20" data-phase="Fase 4: Conflicto & Resolución" data-role="Análisis Técnico" data-role-avatar="🔍" data-title="Fase 4.4: Anatomía de las Marcas de Conflicto">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -1306,9 +1390,9 @@ Instrucciones:
     </section>
 
     <!-- ==========================================
-         SLIDE 20: FASE 4.5 - RESOLUCIÓN MANUAL POR DEV B
+         SLIDE 21: FASE 4.5 - RESOLUCIÓN MANUAL POR DEV B
          ========================================== -->
-    <section class="slide" id="slide-20" data-phase="Fase 4: Conflicto & Resolución" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 4.5: Resolución Manual y Cierre del Merge">
+    <section class="slide" id="slide-21" data-phase="Fase 4: Conflicto & Resolución" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 4.5: Resolución Manual y Cierre del Merge">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -1386,9 +1470,9 @@ Instrucciones:
     </section>
 
     <!-- ==========================================
-         SLIDE 21: FASE 5.1 - GIT LOG GRAPH EN CONSOLA
+         SLIDE 22: FASE 5.1 - GIT LOG GRAPH EN CONSOLA
          ========================================== -->
-    <section class="slide" id="slide-21" data-phase="Fase 5: Inspección del Árbol" data-role="Consola / Terminal" data-role-avatar="💻" data-title="Fase 5.1: git log --graph --oneline --all">
+    <section class="slide" id="slide-22" data-phase="Fase 5: Inspección del Árbol" data-role="Consola / Terminal" data-role-avatar="💻" data-title="Fase 5.1: git log --graph --oneline --all">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -1407,7 +1491,7 @@ Instrucciones:
                 <span class="term-title">bash — Terminal (Sincronizada en main)</span>
                 <button class="btn-copy-code" onclick="presentation.copyCode(this)">Copiar</button>
               </div>
-              <pre class="term-body"><code><span class="c-prompt">$ </span><span class="c-cmd">git checkout main</span>
+              <pre class="term-body"><code><span class="c-prompt">$ </span><span class="c-cmd">git switch main</span>
 <span class="c-prompt">$ </span><span class="c-cmd">git pull origin main</span>
 
 <span class="c-prompt">$ </span><span class="c-cmd">git log --graph --oneline --all</span>
@@ -1418,7 +1502,7 @@ Instrucciones:
 | | * <span class="c-cyan">a18f43c</span> (origin/fix/tiempo-a) fix: subir temperatura de horneado a 220
 | * | <span class="c-rose">d92c81a</span> fix: bajar temperatura a 180 para coccion lenta
 | |/  
-* |   <span class="c-yellow">b8a1c92</span> Merge PR #2 from feature/instrucciones
+| * |   <span class="c-yellow">b8a1c92</span> Merge PR #2 from feature/instrucciones
 |\ \  
 | * | <span class="c-cyan">9e4f2a3</span> feat: agregar pasos de leudado y horneado
 | |/  
@@ -1461,9 +1545,9 @@ Instrucciones:
     </section>
 
     <!-- ==========================================
-         SLIDE 22: FASE 5.2 - GITHUB NETWORK GRAPH
+         SLIDE 23: FASE 5.2 - GITHUB NETWORK GRAPH
          ========================================== -->
-    <section class="slide" id="slide-22" data-phase="Fase 5: Inspección del Árbol" data-role="GitHub Insights" data-role-avatar="🌐" data-title="Fase 5.2: Network Graph en GitHub">
+    <section class="slide" id="slide-23" data-phase="Fase 5: Inspección del Árbol" data-role="GitHub Insights" data-role-avatar="🌐" data-title="Fase 5.2: Network Graph en GitHub">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -1515,9 +1599,9 @@ Instrucciones:
     </section>
 
     <!-- ==========================================
-         SLIDE 23: RESUMEN DEL CIRCUITO Y REGLAS DE ORO
+         SLIDE 24: RESUMEN DEL CIRCUITO Y REGLAS DE ORO
          ========================================== -->
-    <section class="slide" id="slide-23" data-phase="Resumen & Cheat Sheet" data-role="Matriz de Roles" data-role-avatar="📋" data-title="Resumen del Circuito & Reglas de Oro">
+    <section class="slide" id="slide-24" data-phase="Resumen & Cheat Sheet" data-role="Matriz de Roles" data-role-avatar="📋" data-title="Resumen del Circuito & Reglas de Oro">
       <div class="slide-inner">
         <div class="slide-header">
           <span class="step-tag">Cheat Sheet & Matriz de Responsabilidades</span>
@@ -1544,19 +1628,19 @@ Instrucciones:
               </tr>
               <tr>
                 <td class="role-cell cyan">👨‍💻 Dev A</td>
-                <td><code>clone</code>, <code>checkout -b feature/ingredientes</code>, <code>fix/tiempo-a</code></td>
+                <td><code>clone</code>, <code>switch -c feature/ingredientes</code>, <code>fix/tiempo-a</code></td>
                 <td>Apertura de PR #1 y PR #3, Merge</td>
                 <td>Desarrollo de ingredientes y fix A</td>
               </tr>
               <tr>
                 <td class="role-cell rose">👩‍💻 Dev B</td>
-                <td><code>clone</code>, <code>feature/instrucciones</code>, <code>fetch</code> + <code>merge</code>, resolución</td>
+                <td><code>clone</code>, <code>switch -c feature/instrucciones</code>, <code>fetch</code> + <code>merge</code>, resolución</td>
                 <td>Acepta invitación, PR #2 y PR #4 final</td>
                 <td>Instrucciones y resolución de conflicto</td>
               </tr>
               <tr>
                 <td class="role-cell emerald">🔄 Ambos</td>
-                <td><code>git checkout main</code> &amp; <code>git pull origin main</code></td>
+                <td><code>git switch main</code> &amp; <code>git pull origin main</code></td>
                 <td>Inspección en Insights > Network</td>
                 <td>Sincronización continua de código</td>
               </tr>
@@ -1590,9 +1674,9 @@ Instrucciones:
     </section>
 
     <!-- ==========================================
-         SLIDE 24: SIMULADOR INTERACTIVO DE FLUJO GIT
+         SLIDE 25: SIMULADOR INTERACTIVO DE FLUJO GIT
          ========================================== -->
-    <section class="slide" id="slide-24" data-phase="Laboratorio en Vivo" data-role="Simulador Interactivo" data-role-avatar="⚡" data-title="Simulador de Circuito Git en Vivo">
+    <section class="slide" id="slide-25" data-phase="Laboratorio en Vivo" data-role="Simulador Interactivo" data-role-avatar="⚡" data-title="Simulador de Circuito Git en Vivo">
       <div class="slide-inner">
         <div class="slide-header">
           <span class="step-tag">Laboratorio Didáctico</span>
@@ -1659,7 +1743,7 @@ Instrucciones:
       <div class="slide-counter-wrapper">
         <span class="slide-current" id="slideCurrentNum">1</span>
         <span class="slide-divider">/</span>
-        <span class="slide-total" id="slideTotalNum">24</span>
+        <span class="slide-total" id="slideTotalNum">25</span>
       </div>
       <div class="slide-title-indicator" id="footerSlideTitle">Portada & Panorama General</div>
     </div>
