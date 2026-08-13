@@ -152,7 +152,7 @@
         </div>
 
         <div class="workflow-timeline-container">
-          <div class="workflow-step-card" onclick="presentation.goToSlide(4)">
+          <div class="workflow-step-card" onclick="presentation.goToSlide(6)">
             <div class="step-number">0</div>
             <div class="step-role gold">👑 Docente</div>
             <h3>Inicialización</h3>
@@ -160,7 +160,7 @@
             <div class="step-arrow">→</div>
           </div>
 
-          <div class="workflow-step-card" onclick="presentation.goToSlide(5)">
+          <div class="workflow-step-card" onclick="presentation.goToSlide(6)">
             <div class="step-number">1</div>
             <div class="step-role cyan">👨‍💻 Dev A</div>
             <h3>Base del Proyecto</h3>
@@ -168,7 +168,7 @@
             <div class="step-arrow">→</div>
           </div>
 
-          <div class="workflow-step-card" onclick="presentation.goToSlide(8)">
+          <div class="workflow-step-card" onclick="presentation.goToSlide(10)">
             <div class="step-number">2</div>
             <div class="step-role rose">👩‍💻 Dev B</div>
             <h3>Invitación & Clonado</h3>
@@ -176,7 +176,7 @@
             <div class="step-arrow">→</div>
           </div>
 
-          <div class="workflow-step-card" onclick="presentation.goToSlide(9)">
+          <div class="workflow-step-card" onclick="presentation.goToSlide(10)">
             <div class="step-number">3</div>
             <div class="step-role emerald">🔀 Paralelo</div>
             <h3>Feature Branches</h3>
@@ -184,7 +184,7 @@
             <div class="step-arrow">→</div>
           </div>
 
-          <div class="workflow-step-card alert-step" onclick="presentation.goToSlide(17)">
+          <div class="workflow-step-card alert-step" onclick="presentation.goToSlide(18)">
             <div class="step-number">4</div>
             <div class="step-role red">💥 Conflicto</div>
             <h3>Choque & Resolución</h3>
@@ -192,7 +192,7 @@
             <div class="step-arrow">→</div>
           </div>
 
-          <div class="workflow-step-card" onclick="presentation.goToSlide(22)">
+          <div class="workflow-step-card" onclick="presentation.goToSlide(23)">
             <div class="step-number">5</div>
             <div class="step-role blue">🌳 Inspección</div>
             <h3>Árbol de Commits</h3>
@@ -268,9 +268,79 @@
     </section>
 
     <!-- ==========================================
-         SLIDE 4: FASE 0 - DOCENTE / LÍDER
+         SLIDE 4: CONCEPTOS & SETUP - TOKEN CLÁSICO & CREDENTIAL HELPER
          ========================================== -->
-    <section class="slide" id="slide-4" data-phase="Fase 0: Setup Inicial" data-role="Docente / Líder" data-role-avatar="👑" data-title="Fase 0: Inicialización del Repositorio">
+    <section class="slide" id="slide-4" data-phase="Fase 0: Setup & Autenticación" data-role="Configuración Global" data-role-avatar="🔑" data-title="Concepto: Token Clásico (PAT) y Git Credential Helper">
+      <div class="slide-inner">
+        <div class="slide-header">
+          <div class="role-badge-row">
+            <span class="role-pill purple">🔑 Configuración Global de Git & GitHub</span>
+            <span class="phase-pill">Fase 0: Autenticación Segura</span>
+          </div>
+          <h2>Token Clásico (PAT) y Guardar Credenciales para Siempre</h2>
+          <p class="slide-desc">Genera tu Personal Access Token en GitHub y configura <code>credential.helper</code> para no ingresar contraseñas en cada <code>push</code>.</p>
+        </div>
+
+        <div class="two-col-layout">
+          <div class="col-content">
+            <div class="concept-card">
+              <div class="concept-badge">🔒 ¿Por qué GitHub exige Token?</div>
+              <h3>Fin de las contraseñas clásicas en Git</h3>
+              <p>Desde agosto de 2021, GitHub <strong>prohíbe usar tu contraseña de inicio de sesión</strong> para operaciones de consola (<code>git push</code>). Es obligatorio autenticarse con un <strong>Personal Access Token (Classic)</strong>.</p>
+            </div>
+
+            <div class="concept-card highlight-border">
+              <div class="concept-badge green">📋 Paso a Paso en GitHub Web</div>
+              <h3>Cómo generar tu Token Clásico</h3>
+              <ol class="step-list-compact">
+                <li>Haz clic en tu <strong>foto de perfil</strong> (arriba a la derecha) ➔ <strong>Settings</strong>.</li>
+                <li>Baja en el menú izquierdo hasta <strong>Developer Settings</strong>.</li>
+                <li>Selecciona <strong>Personal access tokens</strong> ➔ <strong>Tokens (classic)</strong>.</li>
+                <li>Haz clic en <strong>Generate new token</strong> ➔ <strong>Generate new token (classic)</strong>.</li>
+                <li>En <em>Note</em> escribe: <code>ClaseGitTP Token</code> y define expiración (ej: 30 días).</li>
+                <li>En <em>Select scopes</em> marca la casilla <strong><code>repo</code></strong> (control total de repositorios).</li>
+                <li>Presiona <strong>Generate token</strong> y <strong>copia el código que empieza con <code>ghp_...</code></strong> (¡GitHub solo lo muestra una vez!).</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="col-visual">
+            <div class="terminal-card">
+              <div class="terminal-header">
+                <div class="term-dots"><span></span><span></span><span></span></div>
+                <span class="term-title">bash — Configuración de Identidad y Guardado</span>
+                <button class="btn-copy-code" onclick="presentation.copyCode(this)">Copiar</button>
+              </div>
+              <pre class="term-body"><code><span class="c-comment"># 1. Configura tu nombre y correo en Git:</span>
+<span class="c-prompt">$ </span><span class="c-cmd">git config --global user.name "Tu Nombre"</span>
+<span class="c-prompt">$ </span><span class="c-cmd">git config --global user.email "tu_email@ejemplo.com"</span>
+
+<span class="c-comment"># 2. Configura el guardado permanente de credenciales:</span>
+<span class="c-prompt">$ </span><span class="c-cmd">git config --global credential.helper store</span>
+<span class="c-comment"># (En Windows también puedes usar: git config --global credential.helper manager)</span>
+
+<span class="c-comment"># 3. En tu primer push, Git solicitará credenciales:</span>
+<span class="c-prompt">$ </span><span class="c-cmd">git push -u origin main</span>
+<span class="c-out">Username for 'https://github.com': tu_usuario_github
+Password for 'https://tu_usuario_github@github.com': </span><span class="c-green font-bold">&lt;PEGA_TU_TOKEN_ghp_...&gt;</span>
+<span class="c-comment"># ¡Listo! Git lo guarda en tu disco y NUNCA más te lo pide.</span></code></pre>
+            </div>
+
+            <div class="warning-callout">
+              <div class="warn-header">
+                <span class="warn-icon">💡</span> <strong>Regla de Oro en la Terminal:</strong>
+              </div>
+              <p>Cuando la terminal pide <code>Password</code>, <strong>NO pongas la contraseña de la web de GitHub</strong>: pega tu token <code>ghp_...</code>. Al pegar texto en la consola de contraseñas de Git, <strong>no se muestran asteriscos por seguridad</strong>: pega y presiona <code>Enter</code>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 5: FASE 0 - DOCENTE / LÍDER
+         ========================================== -->
+    <section class="slide" id="slide-5" data-phase="Fase 0: Setup Inicial" data-role="Docente / Líder" data-role-avatar="👑" data-title="Fase 0: Inicialización del Repositorio">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -345,9 +415,9 @@ Branch 'main' set up to track remote branch 'main' from 'origin'.</span></code><
     </section>
 
     <!-- ==========================================
-         SLIDE 5: FASE 1.1 - DEV A CLONA
+         SLIDE 6: FASE 1.1 - DEV A CLONA
          ========================================== -->
-    <section class="slide" id="slide-5" data-phase="Fase 1: Configuración Dev A" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 1.1: Clonado del Proyecto por Dev A">
+    <section class="slide" id="slide-6" data-phase="Fase 1: Configuración Dev A" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 1.1: Clonado del Proyecto por Dev A">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -407,9 +477,9 @@ nothing to commit, working tree clean</span></code></pre>
     </section>
 
     <!-- ==========================================
-         SLIDE 6: CONCEPTOS CLAVE #2 (git commit -am)
+         SLIDE 7: CONCEPTOS CLAVE #2 (git commit -am)
          ========================================== -->
-    <section class="slide" id="slide-6" data-phase="Fase 1: Conceptos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto 2: Sintaxis de git commit -am y las 3 Áreas">
+    <section class="slide" id="slide-7" data-phase="Fase 1: Conceptos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto 2: Sintaxis de git commit -am y las 3 Áreas">
       <div class="slide-inner">
         <div class="slide-header">
           <span class="step-tag">Conceptos Clave & Fundamentos</span>
@@ -474,9 +544,9 @@ nothing to commit, working tree clean</span></code></pre>
     </section>
 
     <!-- ==========================================
-         SLIDE 7: FASE 1.2 - DEV A RECETA.TXT BASE
+         SLIDE 8: FASE 1.2 - DEV A RECETA.TXT BASE
          ========================================== -->
-    <section class="slide" id="slide-7" data-phase="Fase 1: Configuración Dev A" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 1.2: Estructura Base de receta.txt">
+    <section class="slide" id="slide-8" data-phase="Fase 1: Configuración Dev A" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 1.2: Estructura Base de receta.txt">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -552,9 +622,9 @@ Instrucciones:
     </section>
 
     <!-- ==========================================
-         SLIDE 8: FASE 2 - DEV B INVITACIÓN & CLONADO
+         SLIDE 9: FASE 2 - DEV B INVITACIÓN & CLONADO
          ========================================== -->
-    <section class="slide" id="slide-8" data-phase="Fase 2: Incorporación Dev B" data-role="Dev B & Docente" data-role-avatar="👩‍💻" data-title="Fase 2: Permisos y Clonado por Dev B">
+    <section class="slide" id="slide-9" data-phase="Fase 2: Incorporación Dev B" data-role="Dev B & Docente" data-role-avatar="👩‍💻" data-title="Fase 2: Permisos y Clonado por Dev B">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -612,9 +682,9 @@ Receiving objects: 100% (6/6), done.</span>
     </section>
 
     <!-- ==========================================
-         SLIDE 9: CONCEPTOS CLAVE - CAMBIAR DE RAMAS
+         SLIDE 10: CONCEPTOS CLAVE - CAMBIAR DE RAMAS
          ========================================== -->
-    <section class="slide" id="slide-9" data-phase="Fase 3: Conceptos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto: Crear, Listar y Cambiar de Ramas (checkout vs switch)">
+    <section class="slide" id="slide-10" data-phase="Fase 3: Conceptos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto: Crear, Listar y Cambiar de Ramas (checkout vs switch)">
       <div class="slide-inner">
         <div class="slide-header">
           <span class="step-tag">Conceptos Clave & Navegación de Ramas</span>
@@ -696,9 +766,9 @@ Receiving objects: 100% (6/6), done.</span>
     </section>
 
     <!-- ==========================================
-         SLIDE 10: FASE 3.1 - DEV A FEATURE INGREDIENTES
+         SLIDE 11: FASE 3.1 - DEV A FEATURE INGREDIENTES
          ========================================== -->
-    <section class="slide" id="slide-10" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 3.1: Dev A crea feature/ingredientes">
+    <section class="slide" id="slide-11" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 3.1: Dev A crea feature/ingredientes">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -762,9 +832,9 @@ Receiving objects: 100% (6/6), done.</span>
     </section>
 
     <!-- ==========================================
-         SLIDE 11: CONCEPTOS CLAVE #3 (Pull Requests)
+         SLIDE 12: CONCEPTOS CLAVE #3 (Pull Requests)
          ========================================== -->
-    <section class="slide" id="slide-11" data-phase="Fase 3: Conceptos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto 3: Pull Requests en Git vs GitHub">
+    <section class="slide" id="slide-12" data-phase="Fase 3: Conceptos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto 3: Pull Requests en Git vs GitHub">
       <div class="slide-inner">
         <div class="slide-header">
           <span class="step-tag">Conceptos Clave & Fundamentos</span>
@@ -810,9 +880,9 @@ Receiving objects: 100% (6/6), done.</span>
     </section>
 
     <!-- ==========================================
-         SLIDE 12: FASE 3.2 - DEV A PULL REQUEST EN GITHUB
+         SLIDE 13: FASE 3.2 - DEV A PULL REQUEST EN GITHUB
          ========================================== -->
-    <section class="slide" id="slide-12" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 3.2: Pull Request & Merge de Dev A en GitHub">
+    <section class="slide" id="slide-13" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 3.2: Pull Request & Merge de Dev A en GitHub">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -872,9 +942,9 @@ Receiving objects: 100% (6/6), done.</span>
     </section>
 
     <!-- ==========================================
-         SLIDE 13: FASE 3.3 - DEV B FEATURE INSTRUCCIONES
+         SLIDE 14: FASE 3.3 - DEV B FEATURE INSTRUCCIONES
          ========================================== -->
-    <section class="slide" id="slide-13" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 3.3: Dev B crea feature/instrucciones">
+    <section class="slide" id="slide-14" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 3.3: Dev B crea feature/instrucciones">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -937,9 +1007,9 @@ Receiving objects: 100% (6/6), done.</span>
     </section>
 
     <!-- ==========================================
-         SLIDE 14: FASE 3.4 - DEV B PULL REQUEST SIN CONFLICTO
+         SLIDE 15: FASE 3.4 - DEV B PULL REQUEST SIN CONFLICTO
          ========================================== -->
-    <section class="slide" id="slide-14" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 3.4: PR de Dev B y Auto-Merge">
+    <section class="slide" id="slide-15" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 3.4: PR de Dev B y Auto-Merge">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -1004,9 +1074,9 @@ Receiving objects: 100% (6/6), done.</span>
     </section>
 
     <!-- ==========================================
-         SLIDE 15: CONCEPTOS CLAVE #4 (git fetch vs git pull)
+         SLIDE 16: CONCEPTOS CLAVE #4 (git fetch vs git pull)
          ========================================== -->
-    <section class="slide" id="slide-15" data-phase="Fase 3: Conceptos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto 4: git fetch vs git pull (Inspección Segura)">
+    <section class="slide" id="slide-16" data-phase="Fase 3: Conceptos" data-role="Teoría / Fundamentos" data-role-avatar="💡" data-title="Concepto 4: git fetch vs git pull (Inspección Segura)">
       <div class="slide-inner">
         <div class="slide-header">
           <span class="step-tag">Conceptos Clave & Inspección Segura</span>
@@ -1075,9 +1145,9 @@ Receiving objects: 100% (6/6), done.</span>
     </section>
 
     <!-- ==========================================
-         SLIDE 16: FASE 3.5 - SINCRONIZACIÓN AMBOS DEVS
+         SLIDE 17: FASE 3.5 - SINCRONIZACIÓN AMBOS DEVS
          ========================================== -->
-    <section class="slide" id="slide-16" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev A & Dev B" data-role-avatar="🔄" data-title="Fase 3.5: Sincronización Final de la Fase 3">
+    <section class="slide" id="slide-17" data-phase="Fase 3: Desarrollo en Paralelo" data-role="Dev A & Dev B" data-role-avatar="🔄" data-title="Fase 3.5: Sincronización Final de la Fase 3">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -1142,9 +1212,9 @@ Instrucciones:
     </section>
 
     <!-- ==========================================
-         SLIDE 17: FASE 4.1 - CONFLICTO PASO 1 (DEV A)
+         SLIDE 18: FASE 4.1 - CONFLICTO PASO 1 (DEV A)
          ========================================== -->
-    <section class="slide" id="slide-17" data-phase="Fase 4: Conflicto & Resolución" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 4.1: Dev A modifica temperatura a 220°">
+    <section class="slide" id="slide-18" data-phase="Fase 4: Conflicto & Resolución" data-role="Dev A" data-role-avatar="👨‍💻" data-title="Fase 4.1: Dev A modifica temperatura a 220°">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -1202,9 +1272,9 @@ Instrucciones:
     </section>
 
     <!-- ==========================================
-         SLIDE 18: FASE 4.2 - CONFLICTO PASO 2 (DEV B)
+         SLIDE 19: FASE 4.2 - CONFLICTO PASO 2 (DEV B)
          ========================================== -->
-    <section class="slide" id="slide-18" data-phase="Fase 4: Conflicto & Resolución" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 4.2: Dev B modifica la misma línea a 180°">
+    <section class="slide" id="slide-19" data-phase="Fase 4: Conflicto & Resolución" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 4.2: Dev B modifica la misma línea a 180°">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -1263,9 +1333,9 @@ Instrucciones:
     </section>
 
     <!-- ==========================================
-         SLIDE 19: FASE 4.3 - DEV B FETCH + MERGE = CONFLICTO
+         SLIDE 20: FASE 4.3 - DEV B FETCH + MERGE = CONFLICTO
          ========================================== -->
-    <section class="slide" id="slide-19" data-phase="Fase 4: Conflicto & Resolución" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 4.3: Dev B ejecuta fetch + merge y ¡BOOM!">
+    <section class="slide" id="slide-20" data-phase="Fase 4: Conflicto & Resolución" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 4.3: Dev B ejecuta fetch + merge y ¡BOOM!">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -1327,9 +1397,9 @@ Instrucciones:
     </section>
 
     <!-- ==========================================
-         SLIDE 20: FASE 4.4 - ANATOMÍA DE MARCAS DE CONFLICTO
+         SLIDE 21: FASE 4.4 - ANATOMÍA DE MARCAS DE CONFLICTO
          ========================================== -->
-    <section class="slide" id="slide-20" data-phase="Fase 4: Conflicto & Resolución" data-role="Análisis Técnico" data-role-avatar="🔍" data-title="Fase 4.4: Anatomía de las Marcas de Conflicto">
+    <section class="slide" id="slide-21" data-phase="Fase 4: Conflicto & Resolución" data-role="Análisis Técnico" data-role-avatar="🔍" data-title="Fase 4.4: Anatomía de las Marcas de Conflicto">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -1398,9 +1468,9 @@ Instrucciones:
     </section>
 
     <!-- ==========================================
-         SLIDE 21: FASE 4.5 - RESOLUCIÓN MANUAL POR DEV B
+         SLIDE 22: FASE 4.5 - RESOLUCIÓN MANUAL POR DEV B
          ========================================== -->
-    <section class="slide" id="slide-21" data-phase="Fase 4: Conflicto & Resolución" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 4.5: Resolución Manual y Cierre del Merge">
+    <section class="slide" id="slide-22" data-phase="Fase 4: Conflicto & Resolución" data-role="Dev B" data-role-avatar="👩‍💻" data-title="Fase 4.5: Resolución Manual y Cierre del Merge">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -1479,9 +1549,9 @@ Instrucciones:
     </section>
 
     <!-- ==========================================
-         SLIDE 22: FASE 5.1 - GIT LOG GRAPH EN CONSOLA
+         SLIDE 23: FASE 5.1 - GIT LOG GRAPH EN CONSOLA
          ========================================== -->
-    <section class="slide" id="slide-22" data-phase="Fase 5: Inspección del Árbol" data-role="Consola / Terminal" data-role-avatar="💻" data-title="Fase 5.1: git log --graph --oneline --all">
+    <section class="slide" id="slide-23" data-phase="Fase 5: Inspección del Árbol" data-role="Consola / Terminal" data-role-avatar="💻" data-title="Fase 5.1: git log --graph --oneline --all">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -1554,9 +1624,9 @@ Instrucciones:
     </section>
 
     <!-- ==========================================
-         SLIDE 23: FASE 5.2 - GITHUB NETWORK GRAPH
+         SLIDE 24: FASE 5.2 - GITHUB NETWORK GRAPH
          ========================================== -->
-    <section class="slide" id="slide-23" data-phase="Fase 5: Inspección del Árbol" data-role="GitHub Insights" data-role-avatar="🌐" data-title="Fase 5.2: Network Graph en GitHub">
+    <section class="slide" id="slide-24" data-phase="Fase 5: Inspección del Árbol" data-role="GitHub Insights" data-role-avatar="🌐" data-title="Fase 5.2: Network Graph en GitHub">
       <div class="slide-inner">
         <div class="slide-header">
           <div class="role-badge-row">
@@ -1608,9 +1678,9 @@ Instrucciones:
     </section>
 
     <!-- ==========================================
-         SLIDE 24: RESUMEN DEL CIRCUITO Y REGLAS DE ORO
+         SLIDE 25: RESUMEN DEL CIRCUITO Y REGLAS DE ORO
          ========================================== -->
-    <section class="slide" id="slide-24" data-phase="Resumen & Cheat Sheet" data-role="Matriz de Roles" data-role-avatar="📋" data-title="Resumen del Circuito & Reglas de Oro">
+    <section class="slide" id="slide-25" data-phase="Resumen & Cheat Sheet" data-role="Matriz de Roles" data-role-avatar="📋" data-title="Resumen del Circuito & Reglas de Oro">
       <div class="slide-inner">
         <div class="slide-header">
           <span class="step-tag">Cheat Sheet & Matriz de Responsabilidades</span>
@@ -1688,9 +1758,9 @@ Instrucciones:
     </section>
 
     <!-- ==========================================
-         SLIDE 25: SIMULADOR INTERACTIVO DE FLUJO GIT
+         SLIDE 26: SIMULADOR INTERACTIVO DE FLUJO GIT
          ========================================== -->
-    <section class="slide" id="slide-25" data-phase="Laboratorio en Vivo" data-role="Simulador Interactivo" data-role-avatar="⚡" data-title="Simulador de Circuito Git en Vivo">
+    <section class="slide" id="slide-26" data-phase="Laboratorio en Vivo" data-role="Simulador Interactivo" data-role-avatar="⚡" data-title="Simulador de Circuito Git en Vivo">
       <div class="slide-inner">
         <div class="slide-header">
           <span class="step-tag">Laboratorio Didáctico</span>
@@ -1757,7 +1827,7 @@ Instrucciones:
       <div class="slide-counter-wrapper">
         <span class="slide-current" id="slideCurrentNum">1</span>
         <span class="slide-divider">/</span>
-        <span class="slide-total" id="slideTotalNum">25</span>
+        <span class="slide-total" id="slideTotalNum">26</span>
       </div>
       <div class="slide-title-indicator" id="footerSlideTitle">Portada & Panorama General</div>
     </div>

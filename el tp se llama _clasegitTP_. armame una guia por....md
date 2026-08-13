@@ -4,6 +4,45 @@ Aquí tienes la guía completa y estructurada del trabajo práctico **clasegitTP
 
 ---
 
+### **⚙️ Configuración Previa: Identidad, Token Clásico (PAT) y Guardado de Credenciales**
+
+Antes de interactuar con GitHub por consola, cada desarrollador (Docente, Dev A y Dev B) debe configurar su identidad y el almacenamiento de credenciales para que la terminal **no les pida usuario y contraseña en cada `git push`**.
+
+#### **1. Configurar Identidad Global en la Terminal:**
+```bash
+git config --global user.name "Tu Nombre Completo"
+git config --global user.email "tu_email_github@ejemplo.com"
+```
+
+#### **2. Activar el almacenamiento permanente de credenciales:**
+```bash
+git config --global credential.helper store
+```
+> *(En Windows también puedes utilizar `git config --global credential.helper manager` para integrarlo con el Administrador de Credenciales del sistema).*
+
+#### **3. Generar el Personal Access Token (Classic) en GitHub:**
+> ⚠️ **Importante:** Desde agosto de 2021, GitHub **no permite** usar la contraseña de tu cuenta para operaciones de terminal (`git push`). Debes crear un **Token Clásico**.
+
+1. En GitHub, haz clic en tu **foto de perfil** (arriba a la derecha) ➔ **Settings**.
+2. Ve al final del menú lateral izquierdo y haz clic en **Developer Settings**.
+3. Selecciona **Personal access tokens** ➔ **Tokens (classic)**.
+4. Haz clic en **Generate new token** ➔ **Generate new token (classic)**.
+5. Completa los campos:
+   - **Note:** `ClaseGitTP Token`
+   - **Expiration:** 30 días (o el período que dure la cursada).
+   - **Select scopes:** Marca la casilla **`repo`** (acceso total a repositorios).
+6. Haz clic en **Generate token** al final de la página.
+7. **Copia inmediatamente el token generado** (comienza con `ghp_...`). *¡GitHub no lo volverá a mostrar!*
+
+#### **4. Cómo ingresarlo en la consola:**
+Al hacer tu primer `git push`:
+* **Username for 'https://github.com':** Tu usuario de GitHub.
+* **Password for 'https://tu_usuario@github.com':** **PEGA EL TOKEN (`ghp_...`)**.
+> 💡 *Nota de consola:* Al pegar texto en el campo de contraseña de Git, por seguridad **no se muestran asteriscos ni caracteres**. Pega el token y presiona `Enter`.  
+> Gracias a `credential.helper store`, Git recordará el token y **nunca más te volverá a pedir contraseña en los siguientes push o pull**.
+
+---
+
 ### **👑 Fase 0: Inicialización del Repositorio (Docente / Líder)**
 
 #### **💡 Concepto Clave 1: Rama `main` vs `master`**
