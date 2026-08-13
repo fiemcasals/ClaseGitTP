@@ -1778,8 +1778,47 @@ body.theme-light .diff-del {
   background: rgba(16, 185, 129, 0.35);
 }
 
+.btn-resolve-opt.danger {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: #ef4444;
+  color: #f87171;
+  font-weight: 700;
+}
+
+.btn-resolve-opt.danger:hover {
+  background: rgba(239, 68, 68, 0.32);
+}
+
+.emergency-card {
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: var(--radius-md);
+}
+
+.emergency-card .emergency-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.emergency-card h4 {
+  color: #f87171;
+  font-size: 0.88rem;
+  margin: 0;
+}
+
+.emergency-card p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
 /* ==========================================================================
-   RESUME MATRIX & CHEAT SHEET (SLIDE 23)
+   RESUME MATRIX & CHEAT SHEET (SLIDE 24)
    ========================================================================== */
 
 .role-matrix-table-container {
@@ -1824,7 +1863,7 @@ body.theme-light .diff-del {
 
 .golden-rules-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 12px;
 }
 
@@ -1834,6 +1873,15 @@ body.theme-light .diff-del {
   border-radius: var(--radius-md);
   padding: 12px 14px;
   position: relative;
+}
+
+.rule-card.emergency {
+  border-color: rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.08);
+}
+
+.rule-card.emergency .rule-num {
+  color: #f87171;
 }
 
 .rule-num {

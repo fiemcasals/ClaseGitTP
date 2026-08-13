@@ -257,6 +257,18 @@ CONFLICT (content): Merge conflict in receta.txt
 Automatic merge failed; fix conflicts and then commit the result.
 ```
 
+#### **💡 El Botón de Pánico: ¿Qué pasa si quiero cancelar el merge? (`git merge --abort`)**
+Si en pleno conflicto descubres que no estás listo para resolverlo, que te equivocaste de rama o que prefieres dar marcha atrás sin dejar archivos rotos:
+
+```bash
+git merge --abort
+```
+* **¿Qué hace exactamente `git merge --abort`?**
+  1. **Cancela inmediatamente el merge:** Detiene la integración en curso.
+  2. **Limpia las marcas:** Elimina todos los delimitadores `<<<<<<<`, `=======` y `>>>>>>>`.
+  3. **Restaura el estado original:** Vuelve todos los archivos al estado exacto en que estaban antes de lanzar el comando `git merge`.
+  4. **Salida limpia:** Tu rama pasa del estado `fix/tiempo-b|MERGING` a `fix/tiempo-b` normal y segura.
+
 ---
 
 #### **👤 Paso 4: Resolución manual del conflicto por Dev B**

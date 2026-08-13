@@ -405,6 +405,25 @@ class PresentationController {
     } else if (choice === 'team') {
       resolvedLine = '3. Hornear a 200 grados por 20 minutos.';
       explanation = '⭐ ¡Excelente! Llegaron al acuerdo consensuado de equipo (200°C / 20 min).';
+    } else if (choice === 'abort') {
+      sandboxText.innerHTML = `<span class="c-comment"># $ git merge --abort ejecutado con éxito:</span>
+# Se canceló el merge. El archivo volvió a su estado previo intacto:
+
+# Receta de Pizza Casera
+
+Ingredientes:
+- 500g de harina
+- 10g de levadura
+- 1 cucharada de sal
+
+Instrucciones:
+1. Mezclar la harina con agua.
+2. Dejar leudar 1 hora.
+<span class="c-rose font-bold">3. Hornear a 180 grados por 30 minutos.</span>
+
+<span class="c-comment"># Estado de la rama: fix/tiempo-b (limpio, sin marcas ni conflicto pendiente)</span>`;
+      this.showToast('🚨 Merge cancelado con git merge --abort. Tu rama volvió a su estado previo.');
+      return;
     }
 
     sandboxText.innerHTML = `<span class="c-comment"># Receta de Pizza Casera (Conflicto Resuelto Limpiamente)</span>

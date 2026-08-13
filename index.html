@@ -1313,6 +1313,14 @@ Instrucciones:
               <span class="pill-label">Estado de la rama:</span>
               <span class="pill-val red"><code>fix/tiempo-b|MERGING</code></span>
             </div>
+
+            <div class="emergency-card">
+              <div class="emergency-header">
+                <span class="emergency-icon">🚨</span>
+                <h4>Botón de Emergencia: <code>git merge --abort</code></h4>
+              </div>
+              <p>¿El conflicto es inmanejable o te equivocaste de rama? Ejecuta <code>git merge --abort</code> para <strong>cancelar la fusión al 100%</strong>. Git eliminará todas las marcas de conflicto y devolverá tus archivos al estado intacto que tenían antes del merge.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -1423,6 +1431,7 @@ Instrucciones:
                 <button class="btn-resolve-opt" onclick="presentation.resolveSandbox('a')">Aceptar Dev A (220° / 15m)</button>
                 <button class="btn-resolve-opt" onclick="presentation.resolveSandbox('b')">Aceptar Dev B (180° / 30m)</button>
                 <button class="btn-resolve-opt highlight" onclick="presentation.resolveSandbox('team')">⭐ Acuerdo de Equipo (200° / 20m)</button>
+                <button class="btn-resolve-opt danger" onclick="presentation.resolveSandbox('abort')">🚨 Botón de Pánico: git merge --abort</button>
               </div>
             </div>
 
@@ -1668,6 +1677,11 @@ Instrucciones:
             <span class="rule-num">4</span>
             <h4>Comunicación Humana</h4>
             <p>Ante un conflicto, habla con tu compañero antes de borrar código ajeno.</p>
+          </div>
+          <div class="rule-card emergency">
+            <span class="rule-num">🚨</span>
+            <h4>Botón de Pánico</h4>
+            <p><code>git merge --abort</code> cancela el merge y devuelve todo al estado previo seguro.</p>
           </div>
         </div>
       </div>
